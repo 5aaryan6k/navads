@@ -1,12 +1,39 @@
-import { useState } from "react";
-import { mockInquiries } from "../../api/mockData";
-import { Search, Filter, Eye, MessageSquare, Phone, Mail } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Search, Eye, Mail, Phone, Briefcase } from "lucide-react";
+import { apiClient } from "../../api/client";
 
 export function InquiriesList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
+  const [inquiries, setInquiries] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filtered = mockInquiries.filter(i => {
+  useEffect(() => {
+    fetchInquiries();
+  }, []);
+
+  const fetchInquiries = async () => {
+    try {
+      const data = await apiClient.get('/inquiries');
+      setInquiries(data);
+    } catch (error) {
+      console.error("Failed to fetch inquiries", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateStatus = async (id: string, newStatus: string) => {
+    try {
+      await apiClient.put(`/inquiries/${id}/status`, { status: newStatus });
+      setInquiries(inquiries.map(i => i.id === id ? { ...i, status: newStatus } : i));
+    } catch (error) {
+      console.error("Failed to update status", error);
+      alert("Failed to update status");
+    }
+  };
+
+  const filtered = inquiries.filter(i => {
     const matchesSearch = i.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           i.service.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === "All" || i.status === statusFilter;
@@ -63,7 +90,13 @@ export function InquiriesList() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((inq) => (
+              {loading ? (
+                <tr>
+                  <td colSpan={6} className="px-6 py-12 text-center text-slate-500">
+                    Loading inquiries...
+                  </td>
+                </tr>
+              ) : filtered.map((inq) => (
                 <tr key={inq.id} className="border-b border-slate-100 hover:bg-slate-50/50 transition">
                   <td className="px-6 py-4 font-medium text-slate-900">{inq.name}</td>
                   <td className="px-6 py-4 space-y-1">
@@ -77,17 +110,18 @@ export function InquiriesList() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-slate-500">
-                    {new Date(inq.date).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}
+                    {new Date(inq.createdAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}
                   </td>
                   <td className="px-6 py-4">
                     <select 
+                      value={inq.status}
+                      onChange={(e) => updateStatus(inq.id, e.target.value)}
                       className={`text-xs font-semibold rounded-full px-2 py-1 border-none focus:ring-0 cursor-pointer ${
                         inq.status === 'New' ? 'bg-amber-100 text-amber-800' :
                         inq.status === 'Contacted' ? 'bg-blue-100 text-blue-800' :
                         inq.status === 'Closed' ? 'bg-slate-100 text-slate-600' :
                         'bg-emerald-100 text-emerald-800'
                       }`}
-                      defaultValue={inq.status}
                     >
                       <option value="New">New</option>
                       <option value="Contacted">Contacted</option>
@@ -102,7 +136,7 @@ export function InquiriesList() {
                   </td>
                 </tr>
               ))}
-              {filtered.length === 0 && (
+              {!loading && filtered.length === 0 && (
                 <tr>
                   <td colSpan={6} className="px-6 py-12 text-center text-slate-500">
                     No inquiries found matching criteria.

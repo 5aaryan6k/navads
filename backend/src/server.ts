@@ -5,6 +5,9 @@ import contactRoutes from './routes/contact.routes';
 import authRoutes from './routes/auth.routes';
 import contentRoutes from './routes/content.routes';
 import clientRoutes from './routes/client.routes';
+import serviceRoutes from './routes/service.routes';
+import inquiryRoutes from './routes/inquiry.routes';
+import statsRoutes from './routes/stats.routes';
 
 dotenv.config();
 
@@ -18,6 +21,9 @@ app.use('/api/contact', contactRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/clients', clientRoutes);
+app.use('/api/services', serviceRoutes);
+app.use('/api/inquiries', inquiryRoutes);
+app.use('/api/admin', statsRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

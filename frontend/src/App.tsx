@@ -3,7 +3,7 @@ import {
   Mail, MapPin, Menu, X, Shield, Users, Award,
   Phone, Clock, Building2, CheckCircle2, Factory, Hammer
 } from "lucide-react";
-import { encryptData } from "./utils/encryption";
+
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 // Admin Imports
@@ -195,11 +195,30 @@ function HeroSection({ content }: { content?: any }) {
 
 // Services
 function ServicesSection() {
-  const services = [
-    { title: "Industrial Welding", icon: <Factory size={32} />, desc: "Precision structural and industrial welding services.", img: "/welding.jpg" },
-    { title: "Commercial Painting", icon: <CheckCircle2 size={32} />, desc: "Premium coating and painting for commercial facilities.", img: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?auto=format&fit=crop&q=80&w=800" },
-    { title: "General Contracting", icon: <Hammer size={32} />, desc: "End-to-end project management and execution.", img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=800" },
-  ];
+  const [services, setServices] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/services?status=Published")
+      .then(res => res.json())
+      .then(data => {
+        // If DB is empty, use some defaults for presentation
+        if (data.length === 0) {
+          setServices([
+            { title: "Industrial Welding", icon: <Factory size={32} />, desc: "Precision structural and industrial welding services.", img: "/welding.jpg" },
+            { title: "Commercial Painting", icon: <CheckCircle2 size={32} />, desc: "Premium coating and painting for commercial facilities.", img: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?auto=format&fit=crop&q=80&w=800" },
+            { title: "General Contracting", icon: <Hammer size={32} />, desc: "End-to-end project management and execution.", img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=800" }
+          ]);
+        } else {
+          setServices(data.map((s: any) => ({
+            title: s.name,
+            icon: <CheckCircle2 size={32} />, // Default icon
+            desc: s.shortDescription,
+            img: s.featuredImage || "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=800"
+          })));
+        }
+      })
+      .catch(() => console.error("Failed to load services"));
+  }, []);
 
   return (
     <section id="services" className="py-24 bg-navy-50 relative">
@@ -249,13 +268,10 @@ function ContactSection() {
       const formData = new FormData(e.currentTarget);
       const data = Object.fromEntries(formData.entries());
 
-      const payloadString = JSON.stringify(data);
-      const { encryptedData, iv } = await encryptData(payloadString);
-
-      const res = await fetch("http://localhost:5000/api/contact", {
+      const res = await fetch("http://localhost:5000/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ encryptedData, iv })
+        body: JSON.stringify(data)
       });
 
       if (res.ok) {
@@ -281,7 +297,7 @@ function ContactSection() {
             <AnimatedSection>
               <span className="text-primary-600 font-bold tracking-wider uppercase text-sm mb-4 block">Get In Touch</span>
               <h2 className="text-4xl font-display font-bold text-navy-900 mb-6">Let's discuss your project</h2>
-              <p className="text-navy-600 text-lg mb-8">Reach out to our experts. All communications are end-to-end encrypted for your privacy.</p>
+              <p className="text-navy-600 text-lg mb-8">Reach out to our experts to get a comprehensive quote for your project.</p>
             </AnimatedSection>
 
             <AnimatedSection delay={100} className="bg-navy-50 rounded-3xl p-8 border border-navy-100 shadow-lg shadow-navy-200/20">
@@ -325,8 +341,8 @@ function ContactSection() {
                   <div className="w-20 h-20 bg-primary-50 text-primary-600 rounded-full flex items-center justify-center mb-6">
                     <CheckCircle2 size={40} />
                   </div>
-                  <h3 className="text-2xl font-bold text-navy-900 mb-4">Message Sent Securely!</h3>
-                  <p className="text-navy-600">We have received your encrypted message and will reply shortly.</p>
+                  <h3 className="text-2xl font-bold text-navy-900 mb-4">Inquiry Received!</h3>
+                  <p className="text-navy-600">We have received your message and will reply shortly.</p>
                   <button onClick={() => setSuccess(false)} className="mt-8 text-primary-600 hover:text-primary-700 font-semibold">Send Another</button>
                 </div>
               ) : (
@@ -359,7 +375,7 @@ function ContactSection() {
                     <textarea name="message" rows={4} required className="w-full bg-white border border-navy-200 rounded-xl px-4 py-3 text-navy-900 placeholder-navy-400 focus:outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all resize-none" placeholder="Tell us about your requirements..."></textarea>
                   </div>
                   <button type="submit" disabled={loading} className="w-full btn-primary py-4">
-                    {loading ? "Encrypting & Sending..." : "Send Message"}
+                    {loading ? "Sending..." : "Send Message"}
                   </button>
                 </form>
               )}
@@ -523,7 +539,7 @@ function Footer({ onSecretClick }: { onSecretClick?: () => void }) {
 
 function HomePage() {
   const navigate = useNavigate();
-  const [clickCount, setClickCount] = useState(0);
+  const [, setClickCount] = useState(0);
   const [cmsContent, setCmsContent] = useState<any>(null);
 
   useEffect(() => {

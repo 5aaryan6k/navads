@@ -28,7 +28,7 @@ export const addClient = async (req: Request, res: Response) => {
 
 export const deleteClient = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     await prisma.client.delete({ where: { id } });
     res.json({ success: true });
   } catch (error) {

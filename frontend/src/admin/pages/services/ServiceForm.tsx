@@ -2,17 +2,32 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Save, Image as ImageIcon } from "lucide-react";
 
+import { apiClient } from "../../api/client";
+
 export function ServiceForm() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    slug: '',
+    category: 'Welding',
+    status: 'Draft',
+    shortDescription: '',
+    fullDescription: ''
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate API save
-    setTimeout(() => {
+    try {
+      await apiClient.post('/services', formData);
       navigate("/admin/services");
-    }, 1000);
+    } catch (error) {
+      console.error("Failed to save", error);
+      alert("Failed to save service");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -32,15 +47,15 @@ export function ServiceForm() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5">Service Name *</label>
-              <input type="text" required className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" placeholder="e.g. Industrial Welding" />
+              <input type="text" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" placeholder="e.g. Industrial Welding" />
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5">Slug (URL) *</label>
-              <input type="text" required className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" placeholder="industrial-welding" />
+              <input type="text" required value={formData.slug} onChange={e => setFormData({...formData, slug: e.target.value})} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" placeholder="industrial-welding" />
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5">Category *</label>
-              <select className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none">
+              <select value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none">
                 <option>Welding</option>
                 <option>Painting</option>
                 <option>Contracting</option>
@@ -49,7 +64,7 @@ export function ServiceForm() {
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5">Status</label>
-              <select className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none">
+              <select value={formData.status} onChange={e => setFormData({...formData, status: e.target.value})} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none">
                 <option>Draft</option>
                 <option>Published</option>
               </select>
@@ -58,12 +73,12 @@ export function ServiceForm() {
 
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1.5">Short Description *</label>
-            <textarea required rows={2} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" placeholder="Brief summary for service cards..."></textarea>
+            <textarea required rows={2} value={formData.shortDescription} onChange={e => setFormData({...formData, shortDescription: e.target.value})} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" placeholder="Brief summary for service cards..."></textarea>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1.5">Full Description</label>
-            <textarea rows={6} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" placeholder="Detailed service information..."></textarea>
+            <textarea rows={6} value={formData.fullDescription} onChange={e => setFormData({...formData, fullDescription: e.target.value})} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" placeholder="Detailed service information..."></textarea>
           </div>
         </div>
 

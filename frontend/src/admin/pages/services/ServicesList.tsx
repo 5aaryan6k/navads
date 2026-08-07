@@ -1,12 +1,39 @@
-import { useState } from "react";
-import { mockServices } from "../../api/mockData";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Search, Plus, Edit, Trash2, Filter, MoreVertical } from "lucide-react";
+import { apiClient } from "../../api/client";
 
 export function ServicesList() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [services, setServices] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filtered = mockServices.filter(s => 
+  useEffect(() => {
+    fetchServices();
+  }, []);
+
+  const fetchServices = async () => {
+    try {
+      const data = await apiClient.get('/services');
+      setServices(data);
+    } catch (error) {
+      console.error("Failed to fetch services", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this service?")) return;
+    try {
+      await apiClient.delete(`/services/${id}`);
+      setServices(services.filter(s => s.id !== id));
+    } catch (error) {
+      console.error("Failed to delete", error);
+    }
+  };
+
+  const filtered = services.filter(s => 
     s.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -53,7 +80,13 @@ export function ServicesList() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((service) => (
+              {loading ? (
+                <tr>
+                  <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
+                    Loading services...
+                  </td>
+                </tr>
+              ) : filtered.map((service) => (
                 <tr key={service.id} className="border-b border-slate-100 hover:bg-slate-50/50 transition">
                   <td className="px-6 py-4">
                     <div className="font-medium text-slate-900">{service.name}</div>
@@ -77,7 +110,7 @@ export function ServicesList() {
                       <button className="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded transition" title="Edit">
                         <Edit size={16} />
                       </button>
-                      <button className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition" title="Delete">
+                      <button onClick={() => handleDelete(service.id)} className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition" title="Delete">
                         <Trash2 size={16} />
                       </button>
                       <button className="p-1.5 text-slate-400 hover:text-slate-900 hover:bg-slate-100 rounded transition">
@@ -87,7 +120,7 @@ export function ServicesList() {
                   </td>
                 </tr>
               ))}
-              {filtered.length === 0 && (
+              {!loading && filtered.length === 0 && (
                 <tr>
                   <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
                     No services found matching "{searchTerm}"
@@ -100,7 +133,7 @@ export function ServicesList() {
         
         {/* Pagination placeholder */}
         <div className="px-6 py-4 border-t border-slate-200 flex items-center justify-between bg-slate-50">
-          <span className="text-sm text-slate-500">Showing 1 to {filtered.length} of {mockServices.length} results</span>
+          <span className="text-sm text-slate-500">Showing {filtered.length} services</span>
           <div className="flex gap-1">
             <button className="px-3 py-1 border border-slate-300 rounded text-sm disabled:opacity-50" disabled>Prev</button>
             <button className="px-3 py-1 border border-slate-300 rounded text-sm disabled:opacity-50" disabled>Next</button>
