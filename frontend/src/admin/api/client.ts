@@ -1,4 +1,4 @@
-export const API_URL = 'http://localhost:5000/api';
+export const API_URL = 'https://navads.onrender.com/api';
 
 export const apiClient = {
   get: async (endpoint: string) => {

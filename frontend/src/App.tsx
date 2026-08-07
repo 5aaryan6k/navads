@@ -198,7 +198,7 @@ function ServicesSection() {
   const [services, setServices] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/services?status=Published")
+    fetch("https://navads.onrender.com/api/services?status=Published")
       .then(res => res.json())
       .then(data => {
         // If DB is empty, use some defaults for presentation
@@ -268,7 +268,7 @@ function ContactSection() {
       const formData = new FormData(e.currentTarget);
       const data = Object.fromEntries(formData.entries());
 
-      const res = await fetch("http://localhost:5000/api/inquiries", {
+      const res = await fetch("https://navads.onrender.com/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
@@ -555,7 +555,7 @@ function HomePage() {
   const [cmsContent, setCmsContent] = useState<any>(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/content")
+    fetch("https://navads.onrender.com/api/content")
       .then(res => res.json())
       .then(data => setCmsContent(data))
       .catch(() => console.error("Failed to load CMS content"));
