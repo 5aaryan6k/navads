@@ -260,10 +260,12 @@ function ServicesSection() {
 function ContactSection() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    setError("");
     try {
       const formData = new FormData(e.currentTarget);
       const data = Object.fromEntries(formData.entries());
@@ -278,11 +280,11 @@ function ContactSection() {
         setSuccess(true);
         e.currentTarget.reset();
       } else {
-        alert("Failed to send message. Please try again.");
+        setError("Failed to send message. Please try again.");
       }
     } catch (err) {
       console.error(err);
-      alert("Error securely sending message.");
+      setError("Network error: Please check your connection or disable ad blockers.");
     } finally {
       setLoading(false);
     }
@@ -377,6 +379,11 @@ function ContactSection() {
                   <button type="submit" disabled={loading} className="w-full btn-primary py-4">
                     {loading ? "Sending..." : "Send Message"}
                   </button>
+                  {error && (
+                    <div className="mt-4 p-4 bg-red-50 border border-red-100 text-red-600 text-sm rounded-xl text-center">
+                      {error}
+                    </div>
+                  )}
                 </form>
               )}
             </div>
