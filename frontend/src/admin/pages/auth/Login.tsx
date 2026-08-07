@@ -1,18 +1,25 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { Lock, Mail } from "lucide-react";
 
 export function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // If not accessed via the 3 secret taps, bounce back to homepage
+  if (!location.state?.secretAccess) {
+    return <Navigate to="/" replace />;
+  }
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     // Simulate API call
     setTimeout(() => {
+      localStorage.setItem("admin_auth", "true");
       navigate("/admin");
     }, 1000);
   };

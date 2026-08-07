@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { 
   LayoutDashboard, FileText, Settings, Users, 
   MessageSquare, Briefcase, Menu, X, LogOut, FileImage, 
@@ -9,6 +9,19 @@ import {
 export function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("admin_auth") !== "true") {
+      navigate("/");
+    }
+  }, [navigate]);
+
+  const handleLogout = (e: React.MouseEvent) => {
+    e.preventDefault();
+    localStorage.removeItem("admin_auth");
+    navigate("/");
+  };
 
   const navigation = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -77,10 +90,10 @@ export function AdminLayout() {
           </nav>
         </div>
         <div className="p-4 bg-slate-950">
-          <Link to="/admin/login" className="flex items-center text-sm font-medium text-slate-400 hover:text-white">
+          <button onClick={handleLogout} className="flex w-full items-center text-sm font-medium text-slate-400 hover:text-white">
             <LogOut className={`flex-shrink-0 h-5 w-5 ${sidebarOpen ? "mr-3" : "mx-auto"}`} />
             {sidebarOpen && "Logout"}
-          </Link>
+          </button>
         </div>
       </aside>
 

@@ -565,7 +565,7 @@ function HomePage() {
     setClickCount((prev) => {
       const newCount = prev + 1;
       if (newCount >= 3) {
-        navigate("/admin");
+        navigate("/admin/login", { state: { secretAccess: true } });
         return 0;
       }
       setTimeout(() => setClickCount(0), 2000);
