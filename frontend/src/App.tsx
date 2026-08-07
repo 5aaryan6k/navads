@@ -5,7 +5,13 @@ import {
 } from "lucide-react";
 import { encryptData } from "./utils/encryption";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Admin from "./Admin";
+
+// Admin Imports
+import { AdminLayout } from "./admin/layout/AdminLayout";
+import { Login } from "./admin/pages/auth/Login";
+import { Dashboard } from "./admin/pages/Dashboard";
+import { ServicesList } from "./admin/pages/services/ServicesList";
+import { InquiriesList } from "./admin/pages/inquiries/InquiriesList";
 
 // Reusable Animated Section Wrapper
 function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
@@ -553,7 +559,13 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/admin/login" element={<Login />} />
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="services" element={<ServicesList />} />
+        <Route path="inquiries" element={<InquiriesList />} />
+        <Route path="*" element={<div className="p-8 text-center text-slate-500">Module under development.</div>} />
+      </Route>
     </Routes>
   );
 }
