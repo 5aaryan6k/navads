@@ -389,7 +389,17 @@ function ContactSection() {
 
 // About
 function AboutSection({ content }: { content?: any }) {
-  const description = content?.description || "Navi Ads Company is a trusted provider of professional services including cleaning, painting, welding, and labour solutions. Based in Riyadh, Saudi Arabia, we serve clients across the Kingdom with dedication and excellence.";
+  const description = content?.p1 || "Navi Ads Company is a trusted provider of professional services including cleaning, painting, welding, and labour solutions. Based in Riyadh, Saudi Arabia, we serve clients across the Kingdom with dedication and excellence.";
+  const p2 = content?.p2 || "Our commitment to premium quality and reliable delivery has made us a preferred partner for industrial and commercial projects.";
+  const title = content?.title || "Building Trust Through Quality";
+  const imageUrl = content?.imageUrl || "https://images.unsplash.com/photo-1541888081622-192661571597?auto=format&fit=crop&q=80&w=1000";
+  
+  const stats = [
+    { label: content?.stat1Desc || "Completed Projects", value: content?.stat1 || "500+" },
+    { label: content?.stat2Desc || "Expert Professionals", value: content?.stat2 || "150+" },
+    { label: content?.stat3Desc || "Client Satisfaction", value: content?.stat3 || "100%" },
+    { label: content?.stat4Desc || "Years Experience", value: content?.stat4 || "15+" }
+  ];
 
   return (
     <section id="about" className="py-24 bg-white relative overflow-hidden">
@@ -398,11 +408,11 @@ function AboutSection({ content }: { content?: any }) {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <AnimatedSection className="relative">
             <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl">
-              <img src="https://images.unsplash.com/photo-1541888081622-192661571597?auto=format&fit=crop&q=80&w=1000" alt="About Navi Ads" className="w-full h-full object-cover" />
+              <img src={imageUrl} alt="About Navi Ads" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-navy-950/40"></div>
             </div>
             <div className="absolute -bottom-8 -right-8 glass-panel-dark text-white p-8 rounded-3xl shadow-xl border border-white/10 max-w-xs animate-float">
-              <div className="text-4xl font-display font-bold text-gold-400 mb-2">15+</div>
+              <div className="text-4xl font-display font-bold text-gold-400 mb-2">{content?.stat4 || "15+"}</div>
               <p className="font-semibold mb-1">Years of Excellence</p>
               <p className="text-sm text-navy-300">Delivering premium services across Saudi Arabia.</p>
             </div>
@@ -411,21 +421,16 @@ function AboutSection({ content }: { content?: any }) {
           <div>
             <AnimatedSection delay={200}>
               <span className="text-primary-600 font-bold tracking-wider uppercase text-sm mb-4 block">About Us</span>
-              <h2 className="text-4xl sm:text-5xl font-display font-bold text-navy-900 mb-6">Building Trust Through Quality</h2>
+              <h2 className="text-4xl sm:text-5xl font-display font-bold text-navy-900 mb-6">{title}</h2>
               <p className="text-navy-600 text-lg leading-relaxed mb-6">
                 {description}
               </p>
               <p className="text-navy-600 text-lg leading-relaxed mb-8">
-                Our commitment to premium quality and reliable delivery has made us a preferred partner for industrial and commercial projects.
+                {p2}
               </p>
 
               <div className="grid sm:grid-cols-2 gap-6 mb-10">
-                {[
-                  { label: "Completed Projects", value: "500+" },
-                  { label: "Expert Professionals", value: "150+" },
-                  { label: "Client Satisfaction", value: "100%" },
-                  { label: "Years Experience", value: "15+" }
-                ].map((stat, i) => (
+                {stats.map((stat, i) => (
                   <div key={i} className="bg-navy-50 p-6 rounded-2xl border border-navy-100 shadow-sm hover:shadow-md transition-shadow">
                     <div className="text-3xl font-display font-bold text-primary-600 mb-1">{stat.value}</div>
                     <div className="text-sm font-semibold text-navy-600 uppercase tracking-wide">{stat.label}</div>
@@ -445,7 +450,14 @@ function AboutSection({ content }: { content?: any }) {
 }
 
 // Chairman Message
-function CEOMessageSection() {
+function CEOMessageSection({ content }: { content?: any }) {
+  if (content?.published === 'false') return null;
+
+  const name = content?.name || "Abu Rayyan";
+  const position = content?.position || "Chief Executive Officer";
+  const message = content?.message || `"At Navi Ads Company, our vision is built on the foundation of unwavering trust and uncompromising quality. We take pride in contributing to the growth of Saudi Arabia by delivering exceptional industrial and commercial services that stand the test of time."`;
+  const imageUrl = content?.imageUrl || "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800";
+
   return (
     <section className="py-24 bg-navy-900 relative overflow-hidden text-white">
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
@@ -454,11 +466,11 @@ function CEOMessageSection() {
           <div className="lg:col-span-5 relative">
             <AnimatedSection>
               <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border-2 border-white/10 shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800" alt="Abu Rayyan - CEO" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+                <img src={imageUrl} alt={name} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-900/90 to-transparent"></div>
                 <div className="absolute bottom-8 left-8">
-                  <h3 className="text-3xl font-display font-bold text-white mb-1">Abu Rayyan</h3>
-                  <p className="text-gold-400 font-semibold tracking-wider uppercase text-sm">Chief Executive Officer</p>
+                  <h3 className="text-3xl font-display font-bold text-white mb-1">{name}</h3>
+                  <p className="text-gold-400 font-semibold tracking-wider uppercase text-sm">{position}</p>
                 </div>
               </div>
             </AnimatedSection>
@@ -467,10 +479,10 @@ function CEOMessageSection() {
           <div className="lg:col-span-7 lg:pl-12">
             <AnimatedSection delay={200}>
               <h2 className="text-3xl sm:text-4xl font-display font-medium leading-relaxed mb-10 text-navy-50">
-                "At Navi Ads Company, our vision is built on the foundation of unwavering trust and uncompromising quality. We take pride in contributing to the growth of Saudi Arabia by delivering exceptional industrial and commercial services that stand the test of time."
+                {message}
               </h2>
               <div className="flex items-center gap-4 border-t border-white/10 pt-8 mt-8 w-max">
-                <div className="text-2xl font-signature text-gold-400">Abu Rayyan</div>
+                <div className="text-2xl font-signature text-gold-400">{name}</div>
               </div>
             </AnimatedSection>
           </div>
@@ -567,7 +579,7 @@ function HomePage() {
       <HeroSection content={cmsContent?.hero} />
       <AboutSection content={cmsContent?.about} />
       <ServicesSection />
-      <CEOMessageSection />
+      <CEOMessageSection content={cmsContent?.ceo} />
       <ContactSection />
       <Footer onSecretClick={handleSecretClick} />
     </div>

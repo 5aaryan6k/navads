@@ -14,10 +14,37 @@ model Contact {
   createdAt     DateTime @default(now())
 }
 
+model Inquiry {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String
+  service   String
+  message   String
+  status    String   @default("New") // New, Contacted, In Progress, Closed
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Service {
+  id               String   @id @default(uuid())
+  name             String
+  slug             String   @unique
+  category         String
+  status           String   @default("Draft") // Draft, Published
+  shortDescription String
+  fullDescription  String?
+  featuredImage    String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
 model AdminUser {
   id        String   @id @default(uuid())
   email     String   @unique
   password  String
+  name      String   @default("Admin")
+  role      String   @default("Admin") // Super Admin, Admin, Editor
   createdAt DateTime @default(now())
 }
 
@@ -30,6 +57,14 @@ model SiteContent {
   updatedAt DateTime @updatedAt
 
   @@unique([section, key])
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  user      String
+  action    String
+  target    String
+  createdAt DateTime @default(now())
 }
 
 model Client {

@@ -30,5 +30,15 @@ export const apiClient = {
     });
     if (!res.ok) throw new Error(`DELETE ${endpoint} failed`);
     return true;
+  },
+  upload: async (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await fetch(`${API_URL}/upload`, {
+      method: 'POST',
+      body: formData,
+    });
+    if (!res.ok) throw new Error(`Upload failed`);
+    return res.json(); // returns { url: '...' }
   }
 };

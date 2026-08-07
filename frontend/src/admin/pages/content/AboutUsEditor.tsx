@@ -1,16 +1,53 @@
-import { useState } from "react";
-import { Save } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Save, Image as ImageIcon } from "lucide-react";
+import { apiClient } from "../../api/client";
 
 export function AboutUsEditor() {
   const [loading, setLoading] = useState(false);
+  const [content, setContent] = useState({
+    title: 'Building Trust Through Quality',
+    p1: 'Navi Ads Company is a trusted provider of professional services including cleaning, painting, welding, and labour solutions.',
+    p2: 'Our commitment to premium quality and reliable delivery has made us a preferred partner for industrial and commercial projects.',
+    imageUrl: 'https://images.unsplash.com/photo-1541888086425-d81bb19240f5?auto=format&fit=crop&q=80',
+    stat1: '500+', stat1Desc: 'Completed Projects',
+    stat2: '150+', stat2Desc: 'Expert Professionals',
+    stat3: '100%', stat3Desc: 'Client Satisfaction',
+    stat4: '15+', stat4Desc: 'Years Experience'
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    apiClient.get('/content').then(data => {
+      if (data.about) {
+        setContent(prev => ({ ...prev, ...data.about }));
+      }
+    });
+  }, []);
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const { url } = await apiClient.upload(file);
+      setContent({ ...content, imageUrl: url });
+    } catch (err) {
+      alert("Image upload failed");
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const updates = Object.entries(content).map(([key, value]) => ({
+        section: 'about', key, value
+      }));
+      await apiClient.put('/content', { updates });
       alert("About Us content saved successfully!");
-    }, 800);
+    } catch (error) {
+      alert("Failed to save content");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -26,17 +63,28 @@ export function AboutUsEditor() {
           
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1.5">Section Title</label>
-            <input type="text" defaultValue="Building Trust Through Quality" className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" />
+            <input type="text" value={content.title} onChange={e => setContent({...content, title: e.target.value})} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" />
           </div>
           
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1.5">Paragraph 1</label>
-            <textarea rows={4} defaultValue="Navi Ads Company is a trusted provider of professional services including cleaning, painting, welding, and labour solutions. Based in Riyadh, Saudi Arabia, we serve clients across the Kingdom with dedication and excellence." className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+            <textarea rows={4} value={content.p1} onChange={e => setContent({...content, p1: e.target.value})} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1.5">Paragraph 2</label>
-            <textarea rows={3} defaultValue="Our commitment to premium quality and reliable delivery has made us a preferred partner for industrial and commercial projects." className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+            <textarea rows={3} value={content.p2} onChange={e => setContent({...content, p2: e.target.value})} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1.5">About Us Image</label>
+            <div className="flex items-center gap-4">
+              {content.imageUrl && <img src={content.imageUrl} alt="About" className="h-20 w-32 object-cover rounded" />}
+              <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                <ImageIcon size={16} /> Upload Image
+                <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
+              </label>
+            </div>
           </div>
         </div>
 
@@ -48,32 +96,32 @@ export function AboutUsEditor() {
             <div className="p-4 border border-slate-200 rounded-lg bg-slate-50">
               <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Stat 1</label>
               <div className="flex gap-2">
-                <input type="text" defaultValue="500+" className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
-                <input type="text" defaultValue="Completed Projects" className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
+                <input type="text" value={content.stat1} onChange={e => setContent({...content, stat1: e.target.value})} className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
+                <input type="text" value={content.stat1Desc} onChange={e => setContent({...content, stat1Desc: e.target.value})} className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
               </div>
             </div>
             
             <div className="p-4 border border-slate-200 rounded-lg bg-slate-50">
               <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Stat 2</label>
               <div className="flex gap-2">
-                <input type="text" defaultValue="150+" className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
-                <input type="text" defaultValue="Expert Professionals" className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
+                <input type="text" value={content.stat2} onChange={e => setContent({...content, stat2: e.target.value})} className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
+                <input type="text" value={content.stat2Desc} onChange={e => setContent({...content, stat2Desc: e.target.value})} className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
               </div>
             </div>
             
             <div className="p-4 border border-slate-200 rounded-lg bg-slate-50">
               <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Stat 3</label>
               <div className="flex gap-2">
-                <input type="text" defaultValue="100%" className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
-                <input type="text" defaultValue="Client Satisfaction" className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
+                <input type="text" value={content.stat3} onChange={e => setContent({...content, stat3: e.target.value})} className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
+                <input type="text" value={content.stat3Desc} onChange={e => setContent({...content, stat3Desc: e.target.value})} className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
               </div>
             </div>
 
             <div className="p-4 border border-slate-200 rounded-lg bg-slate-50">
               <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Stat 4</label>
               <div className="flex gap-2">
-                <input type="text" defaultValue="15+" className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
-                <input type="text" defaultValue="Years Experience" className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
+                <input type="text" value={content.stat4} onChange={e => setContent({...content, stat4: e.target.value})} className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
+                <input type="text" value={content.stat4Desc} onChange={e => setContent({...content, stat4Desc: e.target.value})} className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
               </div>
             </div>
           </div>
