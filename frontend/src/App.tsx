@@ -11,7 +11,11 @@ import { AdminLayout } from "./admin/layout/AdminLayout";
 import { Login } from "./admin/pages/auth/Login";
 import { Dashboard } from "./admin/pages/Dashboard";
 import { ServicesList } from "./admin/pages/services/ServicesList";
+import { ServiceForm } from "./admin/pages/services/ServiceForm";
 import { InquiriesList } from "./admin/pages/inquiries/InquiriesList";
+import { HomepageEditor } from "./admin/pages/content/HomepageEditor";
+import { AboutUsEditor } from "./admin/pages/content/AboutUsEditor";
+import { CEOMessageEditor } from "./admin/pages/content/CEOMessageEditor";
 
 // Reusable Animated Section Wrapper
 function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
@@ -563,7 +567,11 @@ export default function App() {
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="services" element={<ServicesList />} />
+        <Route path="services/new" element={<ServiceForm />} />
         <Route path="inquiries" element={<InquiriesList />} />
+        <Route path="content/homepage" element={<HomepageEditor />} />
+        <Route path="content/about" element={<AboutUsEditor />} />
+        <Route path="content/ceo" element={<CEOMessageEditor />} />
         <Route path="*" element={<div className="p-8 text-center text-slate-500">Module under development.</div>} />
       </Route>
     </Routes>
