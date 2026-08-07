@@ -52,9 +52,9 @@ function Header() {
 
   const navLinks = [
     { href: "#home", label: "Home" },
-    { href: "#about", label: "About" },
+    { href: "#about-us", label: "About Us" },
     { href: "#services", label: "Services" },
-    { href: "#portfolio", label: "Portfolio" },
+    { href: "#ceo-message", label: "CEO Message" },
     { href: "#contact", label: "Contact" },
   ];
 
@@ -402,7 +402,7 @@ function AboutSection({ content }: { content?: any }) {
   ];
 
   return (
-    <section id="about" className="py-24 bg-white relative overflow-hidden">
+    <section id="about-us" className="py-24 bg-white relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-navy-950 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 z-0"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -459,7 +459,7 @@ function CEOMessageSection({ content }: { content?: any }) {
   const imageUrl = content?.imageUrl || "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800";
 
   return (
-    <section className="py-24 bg-navy-900 relative overflow-hidden text-white">
+    <section id="ceo-message" className="py-24 bg-navy-900 relative overflow-hidden text-white">
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 items-center">
