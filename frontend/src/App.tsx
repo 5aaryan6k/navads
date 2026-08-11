@@ -23,6 +23,7 @@ import { InquiriesList } from "./admin/pages/inquiries/InquiriesList";
 import { HomepageEditor } from "./admin/pages/content/HomepageEditor";
 import { AboutUsEditor } from "./admin/pages/content/AboutUsEditor";
 import { CEOMessageEditor } from "./admin/pages/content/CEOMessageEditor";
+import { API_URL } from "./admin/api/client";
 
 // Reusable Animated Section Wrapper
 function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
@@ -201,7 +202,7 @@ function ServicesSection() {
   const [services, setServices] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch("https://navads.onrender.com/api/services?status=Published")
+    fetch(`${API_URL}/services?status=Published`)
       .then(res => res.json())
       .then(data => {
         // If DB is empty, use some defaults for presentation
@@ -272,7 +273,7 @@ function ContactSection() {
       const formData = new FormData(e.currentTarget);
       const data = Object.fromEntries(formData.entries());
 
-      const res = await fetch("https://navads.onrender.com/api/inquiries", {
+      const res = await fetch(`${API_URL}/inquiries`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)

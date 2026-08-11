@@ -1,10 +1,42 @@
 import { useState } from "react";
 import { Icon } from "../icons/Icons";
 import { siteContent } from "../../data/siteContent";
+import { apiClient } from "../../admin/api/client";
 
 export function Contact() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setSent(false);
+    setError("");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const payload = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      phone: formData.get("phone") as string,
+      service: formData.get("service") as string,
+      message: (formData.get("message") as string) || (formData.get("subject") as string) || "General Inquiry"
+    };
+
+    try {
+      await apiClient.post('/inquiries', payload);
+      setSent(true);
+      form.reset();
+      setTimeout(() => setSent(false), 6000);
+    } catch (err: any) {
+      console.error("Failed to submit inquiry:", err);
+      setError("Failed to send message. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section id="contact" className="py-24 bg-slate-50">
@@ -67,33 +99,24 @@ export function Contact() {
           {/* Form */}
           <form
             className="lg:col-span-3 bg-white p-8 rounded-2xl shadow-xl border border-slate-100"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setLoading(true);
-              setTimeout(() => {
-                setLoading(false);
-                setSent(true);
-                (e.target as HTMLFormElement).reset();
-                setTimeout(() => setSent(false), 5000);
-              }, 800);
-            }}
+            onSubmit={handleSubmit}
           >
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1.5">Full Name *</label>
-                <input required type="text" className="w-full border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition" placeholder="Your full name" />
+                <input name="name" required type="text" className="w-full border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition" placeholder="Your full name" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1.5">Email Address *</label>
-                <input required type="email" className="w-full border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition" placeholder="you@example.com" />
+                <input name="email" required type="email" className="w-full border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition" placeholder="you@example.com" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1.5">Phone Number *</label>
-                <input required type="tel" className="w-full border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition" placeholder="+966 ..." />
+                <input name="phone" required type="tel" className="w-full border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition" placeholder="+966 ..." />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1.5">Service Required *</label>
-                <select required className="w-full border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition bg-white">
+                <select name="service" required className="w-full border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition bg-white">
                   <option value="">Select Service</option>
                   <option value="Sky Cleaning">Sky Cleaning</option>
                   <option value="Manpower Services">Manpower Services</option>
@@ -103,11 +126,11 @@ export function Contact() {
             </div>
             <div className="mt-5">
               <label className="block text-sm font-medium text-slate-700 mb-1.5">Subject</label>
-              <input type="text" className="w-full border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition" placeholder="Inquiry subject" />
+              <input name="subject" type="text" className="w-full border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition" placeholder="Inquiry subject" />
             </div>
             <div className="mt-5">
               <label className="block text-sm font-medium text-slate-700 mb-1.5">Message *</label>
-              <textarea required rows={5} className="w-full border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition" placeholder="Tell us about your requirements..." />
+              <textarea name="message" required rows={5} className="w-full border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition" placeholder="Tell us about your requirements..." />
             </div>
 
             <button
@@ -117,6 +140,12 @@ export function Contact() {
             >
               {loading ? "Sending Message..." : "Send Message"}
             </button>
+
+            {error && (
+              <div className="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
 
             {sent && (
               <div className="mt-4 bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-3 rounded-lg text-sm flex items-center gap-2">

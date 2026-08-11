@@ -20,6 +20,8 @@ export function AdminLayout() {
       navigate("/admin/login");
     } else {
       fetchNotifications();
+      const interval = setInterval(fetchNotifications, 4000);
+      return () => clearInterval(interval);
     }
   }, [navigate]);
 

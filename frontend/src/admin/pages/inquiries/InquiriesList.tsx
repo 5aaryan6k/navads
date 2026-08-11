@@ -12,6 +12,8 @@ export function InquiriesList() {
 
   useEffect(() => {
     fetchInquiries();
+    const interval = setInterval(fetchInquiries, 4000);
+    return () => clearInterval(interval);
   }, []);
 
   const fetchInquiries = async () => {
