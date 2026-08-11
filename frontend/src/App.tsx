@@ -391,7 +391,7 @@ function ContactSection() {
 
 // About
 function AboutSection({ content }: { content?: any }) {
-  const description = content?.p1 || "Navi Ads Company is a trusted provider of professional services including cleaning, painting, welding, and labour solutions. Based in Riyadh, Saudi Arabia, we serve clients across the Kingdom with dedication and excellence.";
+  const description = content?.p1 || "Navi Ads Company is a trusted provider of professional Sky Cleaning and Manpower Services. Based in Riyadh, Saudi Arabia, we serve clients across the Kingdom with dedication and excellence.";
   const p2 = content?.p2 || "Our commitment to premium quality and reliable delivery has made us a preferred partner for industrial and commercial projects.";
   const title = content?.title || "Building Trust Through Quality";
   const imageUrl = content?.imageUrl || "https://images.unsplash.com/photo-1541888081622-192661571597?auto=format&fit=crop&q=80&w=1000";
@@ -511,7 +511,7 @@ function Footer({ onSecretClick }: { onSecretClick?: () => void }) {
               </div>
             </div>
             <p className="text-sm leading-relaxed max-w-md">
-              Navi Ads Company is a trusted provider of professional services including cleaning, painting, welding, and labour solutions. Based in Riyadh, Saudi Arabia.
+              Navi Ads Company is a trusted provider of professional Sky Cleaning and Manpower Services. Based in Riyadh, Saudi Arabia.
             </p>
             <div className="flex items-center gap-3 text-sm">
               <MapPin size={16} className="text-primary-500" />
