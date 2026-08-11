@@ -60,22 +60,22 @@ export function AboutUsEditor() {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 space-y-6">
           <h3 className="font-semibold text-slate-900 border-b border-slate-100 pb-3">Company Overview</h3>
-          
+
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1.5">Section Title</label>
-            <input type="text" value={content.title} onChange={e => setContent({...content, title: e.target.value})} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" />
+            <input type="text" value={content.title} onChange={e => setContent({ ...content, title: e.target.value })} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" />
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1.5">Paragraph 1</label>
-            <textarea rows={4} value={content.p1} onChange={e => setContent({...content, p1: e.target.value})} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+            <textarea rows={4} value={content.p1} onChange={e => setContent({ ...content, p1: e.target.value })} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1.5">Paragraph 2</label>
-            <textarea rows={3} value={content.p2} onChange={e => setContent({...content, p2: e.target.value})} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+            <textarea rows={3} value={content.p2} onChange={e => setContent({ ...content, p2: e.target.value })} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1.5">About Us Image</label>
             <div className="flex items-center gap-4">
@@ -91,37 +91,37 @@ export function AboutUsEditor() {
         {/* Stats Section */}
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 space-y-6">
           <h3 className="font-semibold text-slate-900 border-b border-slate-100 pb-3">Company Statistics</h3>
-          
+
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="p-4 border border-slate-200 rounded-lg bg-slate-50">
               <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Stat 1</label>
               <div className="flex gap-2">
-                <input type="text" value={content.stat1} onChange={e => setContent({...content, stat1: e.target.value})} className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
-                <input type="text" value={content.stat1Desc} onChange={e => setContent({...content, stat1Desc: e.target.value})} className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
+                <input type="text" value={content.stat1} onChange={e => setContent({ ...content, stat1: e.target.value })} className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
+                <input type="text" value={content.stat1Desc} onChange={e => setContent({ ...content, stat1Desc: e.target.value })} className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
               </div>
             </div>
-            
+
             <div className="p-4 border border-slate-200 rounded-lg bg-slate-50">
               <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Stat 2</label>
               <div className="flex gap-2">
-                <input type="text" value={content.stat2} onChange={e => setContent({...content, stat2: e.target.value})} className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
-                <input type="text" value={content.stat2Desc} onChange={e => setContent({...content, stat2Desc: e.target.value})} className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
+                <input type="text" value={content.stat2} onChange={e => setContent({ ...content, stat2: e.target.value })} className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
+                <input type="text" value={content.stat2Desc} onChange={e => setContent({ ...content, stat2Desc: e.target.value })} className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
               </div>
             </div>
-            
+
             <div className="p-4 border border-slate-200 rounded-lg bg-slate-50">
               <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Stat 3</label>
               <div className="flex gap-2">
-                <input type="text" value={content.stat3} onChange={e => setContent({...content, stat3: e.target.value})} className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
-                <input type="text" value={content.stat3Desc} onChange={e => setContent({...content, stat3Desc: e.target.value})} className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
+                <input type="text" value={content.stat3} onChange={e => setContent({ ...content, stat3: e.target.value })} className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
+                <input type="text" value={content.stat3Desc} onChange={e => setContent({ ...content, stat3Desc: e.target.value })} className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
               </div>
             </div>
 
             <div className="p-4 border border-slate-200 rounded-lg bg-slate-50">
               <label className="block text-xs font-semibold text-slate-500 uppercase mb-1">Stat 4</label>
               <div className="flex gap-2">
-                <input type="text" value={content.stat4} onChange={e => setContent({...content, stat4: e.target.value})} className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
-                <input type="text" value={content.stat4Desc} onChange={e => setContent({...content, stat4Desc: e.target.value})} className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
+                <input type="text" value={content.stat4} onChange={e => setContent({ ...content, stat4: e.target.value })} className="w-1/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm font-bold" />
+                <input type="text" value={content.stat4Desc} onChange={e => setContent({ ...content, stat4Desc: e.target.value })} className="w-2/3 px-3 py-1.5 border border-slate-300 rounded-md outline-none text-sm text-slate-600" />
               </div>
             </div>
           </div>
