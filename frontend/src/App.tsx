@@ -204,9 +204,9 @@ function ServicesSection() {
         // If DB is empty, use some defaults for presentation
         if (data.length === 0) {
           setServices([
-            { title: "Industrial Welding", icon: <Factory size={32} />, desc: "Precision structural and industrial welding services.", img: "/welding.jpg" },
-            { title: "Commercial Painting", icon: <CheckCircle2 size={32} />, desc: "Premium coating and painting for commercial facilities.", img: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?auto=format&fit=crop&q=80&w=800" },
-            { title: "General Contracting", icon: <Hammer size={32} />, desc: "End-to-end project management and execution.", img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=800" }
+            { title: "Sky Cleaning", icon: <CheckCircle2 size={32} />, desc: "Navi Ads provides professional sky cleaning services for buildings, offices, homes, and other properties. Our trained team delivers reliable cleaning solutions designed to maintain clean, hygienic, and well-presented spaces.", img: "/sky_cleaning_irata.png" },
+            { title: "Manpower Services", icon: <Users size={32} />, desc: "Navi Ads provides dependable manpower solutions to meet the workforce needs of businesses and organizations. We supply trained, reliable, and professional personnel for a variety of roles.", img: "/manpower_services.png" },
+            { title: "Commercial Painting", icon: <CheckCircle2 size={32} />, desc: "Premium coating and painting for commercial facilities.", img: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?auto=format&fit=crop&q=80&w=800" }
           ]);
         } else {
           setServices(data.map((s: any) => ({
