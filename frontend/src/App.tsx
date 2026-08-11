@@ -39,10 +39,20 @@ function AnimatedSection({ children, className = "", delay = 0 }: { children: Re
   );
 }
 
+// Navigation Links
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About Us" },
+  { href: "/services", label: "Services" },
+  { href: "/ceo-message", label: "CEO Message" },
+  { href: "/contact", label: "Contact" },
+];
+
 // Header
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -50,19 +60,11 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { href: "#home", label: "Home" },
-    { href: "#about-us", label: "About Us" },
-    { href: "#services", label: "Services" },
-    { href: "#ceo-message", label: "CEO Message" },
-    { href: "#contact", label: "Contact" },
-  ];
-
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-white/90 backdrop-blur-xl shadow-lg border-b border-navy-100 py-4" : "bg-transparent py-6"}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          <a href="#home" className="flex items-center gap-3 group">
+          <a onClick={() => navigate("/")} className="flex items-center gap-3 group cursor-pointer">
             <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors duration-300 ${isScrolled ? "bg-navy-900 text-gold-500" : "bg-primary-50 text-primary-600 border border-primary-100"}`}>
               <Building2 size={24} />
             </div>
@@ -77,11 +79,11 @@ function Header() {
           </a>
           <nav className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 text-navy-600 hover:text-primary-600 hover:bg-primary-50`}>
+              <a key={link.href} onClick={() => navigate(link.href)} className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 text-navy-600 hover:text-primary-600 hover:bg-primary-50 cursor-pointer`}>
                 {link.label}
               </a>
             ))}
-            <a href="#contact" className="ml-4 btn-primary">
+            <a onClick={() => navigate("/contact")} className="ml-4 btn-primary cursor-pointer">
               Get Quote
             </a>
           </nav>
@@ -96,8 +98,18 @@ function Header() {
             {navLinks.map((link) => (
               <a
                 key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => { setMobileMenuOpen(false); navigate(link.href); }}
+                className="px-4 py-3 rounded-xl text-sm font-semibold text-navy-600 hover:text-primary-600 hover:bg-primary-50 cursor-pointer"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
                 className="px-4 py-3 text-navy-600 font-semibold hover:bg-navy-50 rounded-xl transition-colors"
               >
                 {link.label}
@@ -556,17 +568,9 @@ function Footer({ onSecretClick }: { onSecretClick?: () => void }) {
   );
 }
 
-function HomePage() {
+function PageLayout({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   const [, setClickCount] = useState(0);
-  const [cmsContent, setCmsContent] = useState<any>(null);
-
-  useEffect(() => {
-    fetch("https://navads.onrender.com/api/content")
-      .then(res => res.json())
-      .then(data => setCmsContent(data))
-      .catch(() => console.error("Failed to load CMS content"));
-  }, []);
 
   const handleSecretClick = () => {
     setClickCount((prev) => {
@@ -581,15 +585,80 @@ function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-navy-50 font-sans selection:bg-primary-200 selection:text-primary-900">
+    <div className="min-h-screen bg-navy-50 font-sans selection:bg-primary-200 selection:text-primary-900 pt-20">
       <Header />
+      {children}
+      <Footer onSecretClick={handleSecretClick} />
+    </div>
+  );
+}
+
+function HomePage() {
+  const [cmsContent, setCmsContent] = useState<any>(null);
+
+  useEffect(() => {
+    fetch("https://navads.onrender.com/api/content")
+      .then(res => res.json())
+      .then(data => setCmsContent(data))
+      .catch(() => console.error("Failed to load CMS content"));
+  }, []);
+
+  return (
+    <PageLayout>
       <HeroSection content={cmsContent?.hero} />
       <AboutSection content={cmsContent?.about} />
       <ServicesSection />
       <CEOMessageSection content={cmsContent?.ceo} />
       <ContactSection />
-      <Footer onSecretClick={handleSecretClick} />
-    </div>
+    </PageLayout>
+  );
+}
+
+function AboutUsPage() {
+  const [cmsContent, setCmsContent] = useState<any>(null);
+  useEffect(() => {
+    fetch("https://navads.onrender.com/api/content")
+      .then(res => res.json())
+      .then(data => setCmsContent(data))
+      .catch(() => console.error("Failed to load CMS content"));
+  }, []);
+
+  return (
+    <PageLayout>
+      <AboutSection content={cmsContent?.about} />
+    </PageLayout>
+  );
+}
+
+function ServicesPage() {
+  return (
+    <PageLayout>
+      <ServicesSection />
+    </PageLayout>
+  );
+}
+
+function CEOMessagePage() {
+  const [cmsContent, setCmsContent] = useState<any>(null);
+  useEffect(() => {
+    fetch("https://navads.onrender.com/api/content")
+      .then(res => res.json())
+      .then(data => setCmsContent(data))
+      .catch(() => console.error("Failed to load CMS content"));
+  }, []);
+
+  return (
+    <PageLayout>
+      <CEOMessageSection content={cmsContent?.ceo} />
+    </PageLayout>
+  );
+}
+
+function ContactPage() {
+  return (
+    <PageLayout>
+      <ContactSection />
+    </PageLayout>
   );
 }
 
@@ -598,6 +667,10 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/about" element={<AboutUsPage />} />
+      <Route path="/services" element={<ServicesPage />} />
+      <Route path="/ceo-message" element={<CEOMessagePage />} />
+      <Route path="/contact" element={<ContactPage />} />
       <Route path="/admin/login" element={<Login />} />
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<Dashboard />} />
