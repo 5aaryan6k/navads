@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Save, Image as ImageIcon } from "lucide-react";
+import { Save } from "lucide-react";
 import { apiClient } from "../../api/client";
 
 export function AboutUsEditor() {
@@ -8,7 +8,6 @@ export function AboutUsEditor() {
     title: 'Building Trust Through Quality',
     p1: 'Navi Ads Company is a trusted provider of professional services including cleaning, painting, welding, and labour solutions.',
     p2: 'Our commitment to premium quality and reliable delivery has made us a preferred partner for industrial and commercial projects.',
-    imageUrl: 'https://images.unsplash.com/photo-1541888086425-d81bb19240f5?auto=format&fit=crop&q=80',
     stat1: '500+', stat1Desc: 'Completed Projects',
     stat2: '150+', stat2Desc: 'Expert Professionals',
     stat3: '100%', stat3Desc: 'Client Satisfaction',
@@ -22,17 +21,6 @@ export function AboutUsEditor() {
       }
     });
   }, []);
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    try {
-      const { url } = await apiClient.upload(file);
-      setContent({ ...content, imageUrl: url });
-    } catch (err) {
-      alert("Image upload failed");
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,17 +62,6 @@ export function AboutUsEditor() {
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1.5">Paragraph 2</label>
             <textarea rows={3} value={content.p2} onChange={e => setContent({ ...content, p2: e.target.value })} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1.5">About Us Image</label>
-            <div className="flex items-center gap-4">
-              {content.imageUrl && <img src={content.imageUrl} alt="About" className="h-20 w-32 object-cover rounded" />}
-              <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
-                <ImageIcon size={16} /> Upload Image
-                <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
-              </label>
-            </div>
           </div>
         </div>
 
