@@ -110,22 +110,6 @@ function Header() {
     </header>
   );
 }
-                className="px-4 py-3 text-navy-600 font-semibold hover:bg-navy-50 rounded-xl transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-            <div className="pt-2 mt-2 border-t border-navy-100">
-              <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="btn-primary w-full text-center justify-center">
-                Get Quote
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 // Hero
 function HeroSection({ content }: { content?: any }) {
@@ -216,9 +200,8 @@ function ServicesSection() {
         // If DB is empty, use some defaults for presentation
         if (data.length === 0) {
           setServices([
-            { title: "Sky Cleaning", icon: <CheckCircle2 size={32} />, desc: "Navi Ads provides professional sky cleaning services for buildings, offices, homes, and other properties. Our trained team delivers reliable cleaning solutions designed to maintain clean, hygienic, and well-presented spaces.", img: "/sky_cleaning_irata.png" },
-            { title: "Manpower Services", icon: <Users size={32} />, desc: "Navi Ads provides dependable manpower solutions to meet the workforce needs of businesses and organizations. We supply trained, reliable, and professional personnel for a variety of roles.", img: "/manpower_services.png" },
-            { title: "Commercial Painting", icon: <CheckCircle2 size={32} />, desc: "Premium coating and painting for commercial facilities.", img: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?auto=format&fit=crop&q=80&w=800" }
+            { title: "Sky Cleaning", icon: <CheckCircle2 size={32} />, desc: "Professional cleaning solutions for buildings, offices, homes, and commercial properties, delivered by trained and reliable personnel.", img: "/sky_cleaning_irata.png" },
+            { title: "Manpower Services", icon: <Users size={32} />, desc: "Reliable manpower solutions providing trained and dependable personnel for businesses, facilities, and operational requirements.", img: "/manpower_services.png" }
           ]);
         } else {
           setServices(data.map((s: any) => ({
@@ -379,9 +362,9 @@ function ContactSection() {
                     <label className="block text-sm font-semibold text-navy-700 mb-2">Service Required</label>
                     <select name="service" required className="w-full bg-white border border-navy-200 rounded-xl px-4 py-3 text-navy-900 focus:outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all">
                       <option value="">Select a service</option>
-                      <option value="welding">Industrial Welding</option>
-                      <option value="painting">Commercial Painting</option>
-                      <option value="contracting">General Contracting</option>
+                      <option value="Sky Cleaning">Sky Cleaning</option>
+                      <option value="Manpower Services">Manpower Services</option>
+                      <option value="Other">Other</option>
                     </select>
                   </div>
                   <div>
@@ -548,8 +531,8 @@ function Footer({ onSecretClick }: { onSecretClick?: () => void }) {
           <div>
             <h4 className="text-white font-bold mb-6 tracking-wide uppercase text-sm">Services</h4>
             <ul className="space-y-3">
-              {['Cleaning Services', 'Painting Services', 'Welding Services', 'Labour Services', 'General Contracting'].map((svc) => (
-                <li key={svc}><span className="text-sm">{svc}</span></li>
+              {[{ name: 'Sky Cleaning', link: '/services#sky-cleaning' }, { name: 'Manpower Services', link: '/services#manpower' }].map((svc) => (
+                <li key={svc.name}><a href={svc.link} className="text-sm hover:text-primary-400 transition-colors">{svc.name}</a></li>
               ))}
             </ul>
           </div>
