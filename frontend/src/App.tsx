@@ -6,6 +6,13 @@ import {
 
 import { Routes, Route, useNavigate } from "react-router-dom";
 
+// Page Imports
+import { HomePage } from "./pages/HomePage";
+import { AboutPage } from "./pages/AboutPage";
+import { ServicesPage } from "./pages/ServicesPage";
+import { CEOMessagePage } from "./pages/CEOMessagePage";
+import { ContactPage } from "./pages/ContactPage";
+
 // Admin Imports
 import { AdminLayout } from "./admin/layout/AdminLayout";
 import { Login } from "./admin/pages/auth/Login";
@@ -597,74 +604,54 @@ function HomePage() {
   );
 }
 
-function AboutUsPage() {
-  const [cmsContent, setCmsContent] = useState<any>(null);
-  useEffect(() => {
-    fetch("https://navads.onrender.com/api/content")
-      .then(res => res.json())
-      .then(data => setCmsContent(data))
-      .catch(() => console.error("Failed to load CMS content"));
-  }, []);
+function SecretFooterLink() {
+  const navigate = useNavigate();
+  const [, setClickCount] = useState(0);
+
+  const handleSecretClick = () => {
+    setClickCount((prev) => {
+      const newCount = prev + 1;
+      if (newCount >= 3) {
+        navigate("/admin/login", { state: { secretAccess: true } });
+        return 0;
+      }
+      setTimeout(() => setClickCount(0), 2000);
+      return newCount;
+    });
+  };
 
   return (
-    <PageLayout>
-      <AboutSection content={cmsContent?.about} />
-    </PageLayout>
-  );
-}
-
-function ServicesPage() {
-  return (
-    <PageLayout>
-      <ServicesSection />
-    </PageLayout>
-  );
-}
-
-function CEOMessagePage() {
-  const [cmsContent, setCmsContent] = useState<any>(null);
-  useEffect(() => {
-    fetch("https://navads.onrender.com/api/content")
-      .then(res => res.json())
-      .then(data => setCmsContent(data))
-      .catch(() => console.error("Failed to load CMS content"));
-  }, []);
-
-  return (
-    <PageLayout>
-      <CEOMessageSection content={cmsContent?.ceo} />
-    </PageLayout>
-  );
-}
-
-function ContactPage() {
-  return (
-    <PageLayout>
-      <ContactSection />
-    </PageLayout>
+    <div className="bg-slate-950 text-slate-500 py-3 border-t border-slate-900 text-center text-xs">
+      <span onClick={handleSecretClick} className="cursor-pointer select-none hover:text-slate-400">
+        © {new Date().getFullYear()} Navi Ads Company. Admin Portal Access.
+      </span>
+    </div>
   );
 }
 
 // Main App
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/about" element={<AboutUsPage />} />
-      <Route path="/services" element={<ServicesPage />} />
-      <Route path="/ceo-message" element={<CEOMessagePage />} />
-      <Route path="/contact" element={<ContactPage />} />
-      <Route path="/admin/login" element={<Login />} />
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="services" element={<ServicesList />} />
-        <Route path="services/new" element={<ServiceForm />} />
-        <Route path="inquiries" element={<InquiriesList />} />
-        <Route path="content/homepage" element={<HomepageEditor />} />
-        <Route path="content/about" element={<AboutUsEditor />} />
-        <Route path="content/ceo" element={<CEOMessageEditor />} />
-        <Route path="*" element={<div className="p-8 text-center text-slate-500">Module under development.</div>} />
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/ceo-message" element={<CEOMessagePage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/admin/login" element={<Login />} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="services" element={<ServicesList />} />
+          <Route path="services/new" element={<ServiceForm />} />
+          <Route path="inquiries" element={<InquiriesList />} />
+          <Route path="content/homepage" element={<HomepageEditor />} />
+          <Route path="content/about" element={<AboutUsEditor />} />
+          <Route path="content/ceo" element={<CEOMessageEditor />} />
+          <Route path="*" element={<div className="p-8 text-center text-slate-500">Module under development.</div>} />
+        </Route>
+      </Routes>
+      <SecretFooterLink />
+    </>
   );
 }
