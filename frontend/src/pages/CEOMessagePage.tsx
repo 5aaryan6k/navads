@@ -19,10 +19,10 @@ export function CEOMessagePage() {
       <Header />
 
       {/* Hero Header */}
-      <div className="bg-gradient-to-br from-slate-900 via-emerald-950 to-teal-900 text-white pt-32 pb-20 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-slate-50 via-emerald-50/60 to-teal-50/40 text-slate-900 pt-36 pb-20 relative overflow-hidden border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 text-center max-w-3xl">
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">{ceo.title}</h1>
-          <p className="mt-4 text-xl text-emerald-300 font-semibold">{ceo.position}</p>
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">{ceo.title}</h1>
+          <p className="mt-4 text-xl text-emerald-600 font-semibold">{ceo.position}</p>
         </div>
       </div>
 
@@ -58,10 +58,7 @@ export function CEOMessagePage() {
 
             <div className="mt-8 space-y-5 text-slate-600 leading-relaxed text-lg">
               {ceo.message.map((p, i) => (
-                <p key={i}>
-                  {i === 0 && <Icon.Quote className="h-7 w-7 inline text-emerald-600 mr-2 -mt-2" />}
-                  {p}
-                </p>
+                <p key={i}>{p}</p>
               ))}
               <p className="font-bold text-slate-900 pt-2">
                 Thank you for trusting Navi Ads. We look forward to serving you.

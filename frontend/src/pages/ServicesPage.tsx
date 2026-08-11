@@ -29,10 +29,10 @@ export function ServicesPage() {
       <Header />
 
       {/* Hero Header */}
-      <div className="bg-gradient-to-br from-slate-900 via-emerald-950 to-teal-900 text-white pt-32 pb-20 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-slate-50 via-emerald-50/60 to-teal-50/40 text-slate-900 pt-36 pb-20 relative overflow-hidden border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 text-center max-w-3xl">
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">Our Services</h1>
-          <p className="mt-4 text-xl text-emerald-300 font-semibold">
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">Our Services</h1>
+          <p className="mt-4 text-xl text-emerald-600 font-semibold">
             Dedicated Sky Cleaning & Manpower Solutions Across Saudi Arabia
           </p>
         </div>
@@ -158,7 +158,7 @@ export function ServicesPage() {
               to="/contact"
               className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-emerald-500/30 transition hover:scale-105"
             >
-              Contact Navi Ads <Icon.Arrow className="h-4 w-4" />
+              Contact Navi Ads
             </Link>
           </div>
         </div>

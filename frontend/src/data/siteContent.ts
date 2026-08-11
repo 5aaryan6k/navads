@@ -10,7 +10,7 @@ export const siteContent = {
       city: "Riyadh",
       country: "Kingdom of Saudi Arabia",
     },
-    email: "aburayyanceo@naviads.com.sa",
+    email: "info@naviads.com.sa",
     hours: "Sun – Thu: 8:00 AM – 6:00 PM",
   },
 
@@ -73,8 +73,8 @@ export const siteContent = {
       "In the dynamic landscape of the Kingdom of Saudi Arabia, we are committed to offering reliable cleaning and manpower solutions that help our clients operate smoothly and grow confidently.",
       "Our people are the heart of this company. We invest in their skills, safety, and well-being so that every client receives service backed by knowledge, care, and discipline. Thank you for trusting Navi Ads. We look forward to serving you.",
     ],
-    image: "/images/ceo/ceo.jpg",
-    showImage: true,
+    image: "",
+    showImage: false,
   },
 
   services: {

@@ -16,19 +16,19 @@ export function Header() {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-slate-900/95 backdrop-blur-md shadow-lg py-3" : "bg-slate-900/80 backdrop-blur-sm py-4"
+        scrolled ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/80 py-3" : "bg-white/90 backdrop-blur-sm border-b border-slate-100 py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
         <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-2 group">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+          <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
             <span className="text-white font-extrabold text-xl">N</span>
           </div>
           <div className="text-left">
-            <div className="font-extrabold text-lg leading-tight text-white">
+            <div className="font-extrabold text-lg leading-tight text-slate-900">
               Navi Ads
             </div>
-            <div className="text-[10px] uppercase tracking-wider text-emerald-400 font-semibold">
+            <div className="text-[10px] uppercase tracking-wider text-emerald-600 font-bold">
               Company
             </div>
           </div>
@@ -41,8 +41,8 @@ export function Header() {
               <Link
                 key={l.href}
                 to={l.href}
-                className={`text-sm font-semibold transition-colors duration-200 hover:text-emerald-400 ${
-                  isActive ? "text-emerald-400 font-bold" : "text-slate-200"
+                className={`text-sm font-semibold transition-colors duration-200 hover:text-emerald-600 ${
+                  isActive ? "text-emerald-600 font-bold" : "text-slate-700"
                 }`}
               >
                 {l.label}
@@ -51,7 +51,7 @@ export function Header() {
           })}
           <Link
             to="/contact"
-            className="bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-md hover:shadow-emerald-500/30 transition-all hover:scale-105"
+            className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-emerald-600/20 transition-all hover:scale-105"
           >
             Get a Quote
           </Link>
@@ -60,7 +60,7 @@ export function Header() {
         {/* Mobile menu toggle */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden text-slate-200 hover:text-white p-2"
+          className="md:hidden text-slate-700 hover:text-slate-900 p-2"
           aria-label="Toggle menu"
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -75,14 +75,14 @@ export function Header() {
 
       {/* Mobile nav dropdown */}
       {open && (
-        <div className="md:hidden bg-slate-900 border-t border-slate-800 px-4 pt-4 pb-6 space-y-3">
+        <div className="md:hidden bg-white border-t border-slate-200 px-4 pt-4 pb-6 space-y-3 shadow-xl">
           {navLinks.map((l) => (
             <Link
               key={l.href}
               to={l.href}
               onClick={() => setOpen(false)}
               className={`block px-3 py-2 rounded-lg text-base font-medium ${
-                location.pathname === l.href ? "bg-emerald-500/20 text-emerald-400 font-semibold" : "text-slate-200 hover:bg-slate-800"
+                location.pathname === l.href ? "bg-emerald-50 text-emerald-600 font-semibold" : "text-slate-700 hover:bg-slate-50"
               }`}
             >
               {l.label}
@@ -92,7 +92,7 @@ export function Header() {
             <Link
               to="/contact"
               onClick={() => setOpen(false)}
-              className="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-3 rounded-full text-base font-semibold shadow-md"
+              className="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3 rounded-full text-base font-semibold shadow-md"
             >
               Get a Quote
             </Link>

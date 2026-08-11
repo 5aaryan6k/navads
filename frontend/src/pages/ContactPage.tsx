@@ -15,10 +15,10 @@ export function ContactPage() {
       <Header />
 
       {/* Hero Header */}
-      <div className="bg-gradient-to-br from-slate-900 via-emerald-950 to-teal-900 text-white pt-32 pb-20 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-slate-50 via-emerald-50/60 to-teal-50/40 text-slate-900 pt-36 pb-20 relative overflow-hidden border-b border-slate-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 text-center max-w-3xl">
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">Let's Work Together</h1>
-          <p className="mt-4 text-xl text-emerald-300 font-semibold leading-relaxed">
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">Let's Work Together</h1>
+          <p className="mt-4 text-xl text-emerald-600 font-semibold leading-relaxed">
             Whether you need professional cleaning services or reliable manpower for your business or property, {siteContent.company.fullName} is ready to provide a solution tailored to your requirements.
           </p>
         </div>

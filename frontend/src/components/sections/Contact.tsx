@@ -115,7 +115,7 @@ export function Contact() {
               disabled={loading}
               className="mt-6 w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-emerald-500/30 transition flex items-center justify-center gap-2"
             >
-              {loading ? "Sending Message..." : "Send Message"} <Icon.Arrow className="h-4 w-4" />
+              {loading ? "Sending Message..." : "Send Message"}
             </button>
 
             {sent && (

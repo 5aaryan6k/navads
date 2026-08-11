@@ -583,52 +583,6 @@ function PageLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
-function HomePage() {
-  const [cmsContent, setCmsContent] = useState<any>(null);
-
-  useEffect(() => {
-    fetch("https://navads.onrender.com/api/content")
-      .then(res => res.json())
-      .then(data => setCmsContent(data))
-      .catch(() => console.error("Failed to load CMS content"));
-  }, []);
-
-  return (
-    <PageLayout>
-      <HeroSection content={cmsContent?.hero} />
-      <AboutSection content={cmsContent?.about} />
-      <ServicesSection />
-      <CEOMessageSection content={cmsContent?.ceo} />
-      <ContactSection />
-    </PageLayout>
-  );
-}
-
-function SecretFooterLink() {
-  const navigate = useNavigate();
-  const [, setClickCount] = useState(0);
-
-  const handleSecretClick = () => {
-    setClickCount((prev) => {
-      const newCount = prev + 1;
-      if (newCount >= 3) {
-        navigate("/admin/login", { state: { secretAccess: true } });
-        return 0;
-      }
-      setTimeout(() => setClickCount(0), 2000);
-      return newCount;
-    });
-  };
-
-  return (
-    <div className="bg-slate-950 text-slate-500 py-3 border-t border-slate-900 text-center text-xs">
-      <span onClick={handleSecretClick} className="cursor-pointer select-none hover:text-slate-400">
-        © {new Date().getFullYear()} Navi Ads Company. Admin Portal Access.
-      </span>
-    </div>
-  );
-}
-
 // Main App
 export default function App() {
   return (
@@ -651,7 +605,6 @@ export default function App() {
           <Route path="*" element={<div className="p-8 text-center text-slate-500">Module under development.</div>} />
         </Route>
       </Routes>
-      <SecretFooterLink />
     </>
   );
 }

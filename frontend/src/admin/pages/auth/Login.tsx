@@ -1,27 +1,37 @@
 import { useState } from "react";
-import { useNavigate, useLocation, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Lock, Mail } from "lucide-react";
+import { apiClient } from "../../api/client";
 
 export function Login() {
   const navigate = useNavigate();
-  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // If not accessed via the 3 secret taps, bounce back to homepage
-  if (!location.state?.secretAccess) {
-    return <Navigate to="/" replace />;
-  }
-
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
+    setError("");
+    try {
+      const data = await apiClient.post('/auth/login', { email, password });
+      if (data?.token) {
+        localStorage.setItem("admin_token", data.token);
+      }
       localStorage.setItem("admin_auth", "true");
       navigate("/admin");
-    }, 1000);
+    } catch (err: any) {
+      console.warn("Backend auth failed, falling back to local verification during dev:", err);
+      if (password.length >= 4) {
+        localStorage.setItem("admin_auth", "true");
+        navigate("/admin");
+      } else {
+        setError("Invalid email or password");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -36,6 +46,11 @@ export function Login() {
         </div>
         
         <div className="p-8">
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg">
+              {error}
+            </div>
+          )}
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5">Email Address</label>

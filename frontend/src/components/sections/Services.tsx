@@ -41,7 +41,7 @@ export function Services() {
                   to={`/services#${s.id}`}
                   className="inline-flex items-center gap-2 font-bold text-emerald-600 hover:text-emerald-700 transition-colors text-sm"
                 >
-                  Explore {s.title} <Icon.Arrow className="h-4 w-4" />
+                  Explore {s.title}
                 </Link>
               </div>
             </div>

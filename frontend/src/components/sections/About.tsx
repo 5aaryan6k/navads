@@ -43,7 +43,7 @@ export function About() {
               to="/about"
               className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full text-sm font-semibold shadow-md transition"
             >
-              Learn More About Us <Icon.Arrow className="h-4 w-4" />
+              Learn More About Us
             </Link>
           </div>
         </div>

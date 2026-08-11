@@ -34,18 +34,13 @@ export function Dashboard() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
-        <div className="flex gap-2">
-          <Link to="/admin/services/new" className="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition">
-            Add Service
-          </Link>
-          <Link to="/admin/inquiries" className="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-700 transition shadow-sm">
-            View Inquiries
-          </Link>
-        </div>
+        <Link to="/admin/inquiries" className="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-emerald-700 transition shadow-sm">
+          View All Inquiries
+        </Link>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <h3 className="text-slate-500 text-sm font-medium">Total Inquiries</h3>
@@ -77,27 +72,14 @@ export function Dashboard() {
 
         <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
           <div className="flex items-center justify-between">
-            <h3 className="text-slate-500 text-sm font-medium">Active Services</h3>
+            <h3 className="text-slate-500 text-sm font-medium">Inquiries Contacted</h3>
             <div className="h-10 w-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
               <Briefcase size={20} />
             </div>
           </div>
           <div className="mt-4">
-            <span className="text-3xl font-bold text-slate-900">{stats?.activeServices || 0}</span>
-            <div className="mt-1 text-sm text-slate-500">Out of {stats?.totalServices || 0} total</div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
-          <div className="flex items-center justify-between">
-            <h3 className="text-slate-500 text-sm font-medium">Published Pages</h3>
-            <div className="h-10 w-10 bg-purple-50 rounded-lg flex items-center justify-center text-purple-600">
-              <FileText size={20} />
-            </div>
-          </div>
-          <div className="mt-4">
-            <span className="text-3xl font-bold text-slate-900">{stats?.publishedContent || 0}</span>
-            <div className="mt-1 text-sm text-slate-500">Live on website</div>
+            <span className="text-3xl font-bold text-slate-900">{inquiries.filter(i => i.status === 'Contacted' || i.status === 'In Progress').length}</span>
+            <div className="mt-1 text-sm text-slate-500">In communication</div>
           </div>
         </div>
       </div>
