@@ -140,7 +140,7 @@ function HeroSection({ content }: { content?: any }) {
           <AnimatedSection>
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/10 text-sm text-primary-300 font-medium mb-8">
               <div className="w-2 h-2 bg-primary-400 rounded-full animate-pulse"></div>
-              Trusted by 500+ Clients
+              CR: 7051048754 — Riyadh
             </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-navy-900 leading-[1.1] mb-8 tracking-tight">
               {title.split(" ").map((word: string, i: number, arr: string[]) =>

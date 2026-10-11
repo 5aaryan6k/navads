@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Icon } from "../icons/Icons";
-import { stats, servicesList } from "../../data/constants";
+import { servicesList } from "../../data/constants";
 import { siteContent } from "../../data/siteContent";
 import { COMPANY_INFO } from "../../data/seoData";
 import { Shield, Phone, MessageSquare } from "lucide-react";
@@ -91,19 +91,20 @@ export function Hero() {
             </Link>
           </div>
 
-          <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 border-t border-slate-200/60">
-            {stats.map((s, idx) => (
-              <div key={idx}>
-                <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600">{s.n}</div>
-                <div className="text-xs text-slate-500 font-medium mt-1">
-                  {isArabic ? (
-                    idx === 0 ? "سنوات خبرة" :
-                    idx === 1 ? "مشروعاً منجزاً" :
-                    idx === 2 ? "عامل مهني" : "نسبة رضا العملاء"
-                  ) : s.label}
-                </div>
-              </div>
-            ))}
+          {/* Verified Trust Badges */}
+          <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-200/60">
+            <div className="bg-white/80 border border-slate-200/80 p-3.5 rounded-2xl shadow-sm">
+              <div className="text-xs font-bold text-slate-500 uppercase">{isArabic ? "السجل التجاري" : "Commercial License"}</div>
+              <div className="text-sm font-extrabold text-slate-900 mt-0.5">{COMPANY_INFO.crNumber}</div>
+            </div>
+            <div className="bg-white/80 border border-slate-200/80 p-3.5 rounded-2xl shadow-sm">
+              <div className="text-xs font-bold text-slate-500 uppercase">{isArabic ? "المدينة والنطاق" : "Service Area"}</div>
+              <div className="text-sm font-extrabold text-slate-900 mt-0.5">{isArabic ? "مدينة الرياض" : "Riyadh Metropolitan"}</div>
+            </div>
+            <div className="col-span-2 sm:col-span-1 bg-white/80 border border-slate-200/80 p-3.5 rounded-2xl shadow-sm">
+              <div className="text-xs font-bold text-slate-500 uppercase">{isArabic ? "الكوادر والتشغيل" : "Operations"}</div>
+              <div className="text-sm font-extrabold text-slate-900 mt-0.5">{isArabic ? "كوادر نظامية معتمدة" : "Compliant Staff"}</div>
+            </div>
           </div>
         </div>
 

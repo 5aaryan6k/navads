@@ -26,12 +26,7 @@ export const servicesList = [
   },
 ];
 
-export const stats = [
-  { n: "10+", label: "Years of Experience" },
-  { n: "500+", label: "Projects Delivered" },
-  { n: "200+", label: "Skilled Workers" },
-  { n: "98%", label: "Client Satisfaction" },
-];
+
 
 export const navLinks = [
   { href: "/", label: "Home" },
