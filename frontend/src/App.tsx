@@ -10,8 +10,12 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { AboutPage } from "./pages/AboutPage";
 import { ServicesPage } from "./pages/ServicesPage";
+import { ServiceDetailPage } from "./pages/ServiceDetailPage";
+import { CityPage } from "./pages/CityPage";
+import { LegalPage } from "./pages/LegalPage";
 import { CEOMessagePage } from "./pages/CEOMessagePage";
 import { ContactPage } from "./pages/ContactPage";
+import { SEOHead } from "./components/SEOHead";
 
 // Admin Imports
 import { AdminLayout } from "./admin/layout/AdminLayout";
@@ -588,12 +592,39 @@ function PageLayout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <>
+      <SEOHead />
       <Routes>
+        {/* English Public Routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<ServicesPage />} />
-        <Route path="/ceo-message" element={<CEOMessagePage />} />
+        <Route path="/services/cleaning" element={<ServicesPage />} />
+        <Route path="/services/cleaning/:serviceSlug" element={<ServiceDetailPage />} />
+        <Route path="/services/manpower" element={<ServicesPage />} />
+        <Route path="/services/manpower/:serviceSlug" element={<ServiceDetailPage />} />
+        <Route path="/riyadh" element={<CityPage />} />
+        <Route path="/sky-cleaning-riyadh" element={<ServiceDetailPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacy-policy" element={<LegalPage />} />
+        <Route path="/terms" element={<LegalPage />} />
+        <Route path="/ceo-message" element={<CEOMessagePage />} />
+
+        {/* Arabic Public Routes */}
+        <Route path="/ar" element={<HomePage />} />
+        <Route path="/ar/about" element={<AboutPage />} />
+        <Route path="/ar/services" element={<ServicesPage />} />
+        <Route path="/ar/services/cleaning" element={<ServicesPage />} />
+        <Route path="/ar/services/cleaning/:serviceSlug" element={<ServiceDetailPage />} />
+        <Route path="/ar/services/manpower" element={<ServicesPage />} />
+        <Route path="/ar/services/manpower/:serviceSlug" element={<ServiceDetailPage />} />
+        <Route path="/ar/riyadh" element={<CityPage />} />
+        <Route path="/ar/sky-cleaning-riyadh" element={<ServiceDetailPage />} />
+        <Route path="/ar/contact" element={<ContactPage />} />
+        <Route path="/ar/privacy-policy" element={<LegalPage />} />
+        <Route path="/ar/terms" element={<LegalPage />} />
+        <Route path="/ar/ceo-message" element={<CEOMessagePage />} />
+
+        {/* Admin Routes */}
         <Route path="/admin/login" element={<Login />} />
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />

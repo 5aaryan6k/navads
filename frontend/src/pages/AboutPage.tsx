@@ -1,26 +1,34 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Header } from "../components/sections/Header";
 import { Footer } from "../components/sections/Footer";
 import { Icon } from "../components/icons/Icons";
 import { siteContent } from "../data/siteContent";
 import { SafeImage } from "../components/ui/SafeImage";
+import { COMPANY_INFO } from "../data/seoData";
+import { Shield, ArrowRight, ArrowLeft } from "lucide-react";
 
 export function AboutPage() {
-  useEffect(() => {
-    document.title = "About Navi Ads | Cleaning & Manpower Services";
-    window.scrollTo(0, 0);
-  }, []);
+  const location = useLocation();
+  const isArabic = location.pathname.startsWith("/ar");
+  const Arrow = isArabic ? ArrowLeft : ArrowRight;
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans antialiased">
+    <div className={`min-h-screen bg-white text-slate-900 font-sans antialiased ${isArabic ? "font-arabic" : ""}`} dir={isArabic ? "rtl" : "ltr"}>
       <Header />
 
       {/* Hero Header */}
-      <div className="bg-gradient-to-br from-slate-50 via-emerald-50/60 to-teal-50/40 text-slate-900 pt-36 pb-20 relative overflow-hidden border-b border-slate-200/60">
+      <div className="bg-gradient-to-br from-slate-900 via-navy-900 to-slate-950 text-white pt-36 pb-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 text-center max-w-3xl">
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">{siteContent.about.title}</h1>
-          <p className="mt-4 text-xl text-emerald-600 font-semibold">{siteContent.about.subtitle}</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 mb-4">
+            <Shield size={14} />
+            <span>{isArabic ? "سجل تجاري معتمد: 7051048754" : "Registered Entity — CR: 7051048754"}</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+            {isArabic ? "عن شركة نافيآدز في المملكة العربية السعودية" : siteContent.about.title}
+          </h1>
+          <p className="mt-4 text-base sm:text-xl text-slate-300 font-medium">
+            {isArabic ? "خدمات احترافية. كوادر موثوقة. نتائج عالية الجودة." : siteContent.about.subtitle}
+          </p>
         </div>
       </div>
 
@@ -28,19 +36,35 @@ export function AboutPage() {
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl font-bold text-slate-900">Company Overview</h2>
-            <p className="mt-5 text-slate-600 leading-relaxed text-lg">
-              {siteContent.about.overview}
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+              {isArabic ? "نبذة عن الشركة ومسيرتها" : "Company Overview"}
+            </h2>
+            <p className="mt-5 text-slate-600 leading-relaxed text-base sm:text-lg">
+              {isArabic
+                ? "شركة نافيآدز هي مزود خدمات مهني متخصص يركز على تقديم حلول النظافة المتكاملة (خدمات تنظيف سكاي) وإدارة وتوريد القوى العاملة للعملاء من القطاعات السكنية، التجارية، والمؤسسية في مدينة الرياض والمملكة العربية السعودية."
+                : siteContent.about.overview}
             </p>
-            <p className="mt-4 text-slate-600 leading-relaxed text-lg">
-              {siteContent.about.goal}
+            <p className="mt-4 text-slate-600 leading-relaxed text-base sm:text-lg">
+              {isArabic
+                ? "نهدف إلى تزويد عملائنا بكوادر نظامية ومحترفة تساعدهم في الحفاظ على بيئات نظيفة، مريحة، منتجة، ومُدارة بأعلى درجات الكفاءة والانضباط."
+                : siteContent.about.goal}
             </p>
 
             <div className="mt-8">
-              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">We Focus On</h3>
+              <h3 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
+                {isArabic ? "مرتكزاتنا الأساسية" : "We Focus On"}
+              </h3>
               <div className="flex flex-wrap gap-2">
-                {siteContent.about.focusPoints.map((point) => (
-                  <span key={point} className="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-full text-sm font-medium shadow-sm">
+                {(isArabic ? [
+                  "الاحترافية العالية",
+                  "الموثوقية والانضباط",
+                  "الجودة الاستثنائية",
+                  "السلامة والصحة المهنية",
+                  "رضا العميل التام",
+                  "كوادر مؤهلة ونظامية",
+                  "خدمة مستمرة ومستقرة"
+                ] : siteContent.about.focusPoints).map((point) => (
+                  <span key={point} className="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-full text-xs sm:text-sm font-medium shadow-sm">
                     ✓ {point}
                   </span>
                 ))}
@@ -50,7 +74,7 @@ export function AboutPage() {
 
           {siteContent.about.showImage && siteContent.about.image && (
             <div className="rounded-3xl overflow-hidden shadow-xl border border-slate-200">
-              <SafeImage src={siteContent.about.image} alt="About Navi Ads" className="w-full h-[400px] object-cover" />
+              <SafeImage src={siteContent.about.image} alt={isArabic ? "عن شركة نافيآدز" : "About Navi Ads"} className="w-full h-[400px] object-cover" />
             </div>
           )}
         </div>
@@ -58,53 +82,57 @@ export function AboutPage() {
 
       {/* Mission & Vision */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-8">
-          <div className="bg-emerald-50 border border-emerald-100 rounded-3xl p-8 shadow-sm">
-            <div className="h-12 w-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center mb-6 shadow-md">
-              <Icon.Star className="h-6 w-6" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-emerald-50/60 border border-emerald-100 p-8 rounded-3xl">
+              <div className="h-12 w-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold mb-6 shadow-md">
+                <Icon.Shield className="h-6 w-6" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">{isArabic ? "رسالتنا" : "Our Mission"}</h3>
+              <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+                {isArabic
+                  ? "تقديم حلول تنظيف وتوريد عمالة موثوقة تلبي تطلعات عملائنا بدقة، مع الحفاظ على أرقى معايير الاحترافية، الجودة، السلامة، وخدمة العملاء في الرياض والمملكة."
+                  : siteContent.about.mission}
+              </p>
             </div>
-            <h3 className="text-2xl font-bold text-slate-900">Our Mission</h3>
-            <p className="mt-4 text-slate-600 leading-relaxed text-lg">
-              {siteContent.about.mission}
-            </p>
-          </div>
 
-          <div className="bg-teal-50 border border-teal-100 rounded-3xl p-8 shadow-sm">
-            <div className="h-12 w-12 rounded-2xl bg-teal-600 text-white flex items-center justify-center mb-6 shadow-md">
-              <Icon.Shield className="h-6 w-6" />
+            <div className="bg-teal-50/60 border border-teal-100 p-8 rounded-3xl">
+              <div className="h-12 w-12 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold mb-6 shadow-md">
+                <Icon.Star className="h-6 w-6" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">{isArabic ? "رؤيتنا" : "Our Vision"}</h3>
+              <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+                {isArabic
+                  ? "أن نكون الشريك الأكثر ثقة وتميزاً في قطاع خدمات النظافة المتخصصة وإدارة القوى العاملة في المملكة العربية السعودية، عبر كوادر موثوقة وعلاقات مستدامة طويلة الأمد."
+                  : siteContent.about.vision}
+              </p>
             </div>
-            <h3 className="text-2xl font-bold text-slate-900">Our Vision</h3>
-            <p className="mt-4 text-slate-600 leading-relaxed text-lg">
-              {siteContent.about.vision}
-            </p>
           </div>
         </div>
       </section>
 
-      {/* Core Values */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <h2 className="text-3xl font-bold text-slate-900">Our Core Values</h2>
-            <p className="mt-3 text-slate-600">The principles that guide our everyday operations and client service.</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {siteContent.about.coreValues.map((val) => (
-              <div key={val.title} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="text-emerald-600 font-bold text-xl mb-2">{val.title}</div>
-                <p className="text-slate-600 text-sm leading-relaxed">{val.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-16 text-center">
+      {/* CTAs */}
+      <section className="py-16 bg-slate-900 text-white text-center">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl font-extrabold mb-4">
+            {isArabic ? "جاهزون لخدمة منشأتكم في الرياض" : "Ready to Experience Quality Services in Riyadh?"}
+          </h2>
+          <p className="text-slate-300 text-sm sm:text-base mb-8">
+            {isArabic ? "تواصل معنا اليوم واستلم عرض أسعار مخصص لاحتياجاتك." : "Contact our operations team today for a tailored cleaning or manpower proposal."}
+          </p>
+          <div className="flex justify-center gap-4 flex-wrap">
             <Link
-              to="/services"
-              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-emerald-500/20 transition"
+              to={isArabic ? "/ar/contact" : "/contact"}
+              className="bg-emerald-600 hover:bg-emerald-500 text-white px-7 py-3 rounded-full font-bold shadow-lg transition"
             >
-              Explore Our Services
+              {isArabic ? "تواصل معنا" : "Contact Us"}
             </Link>
+            <a
+              href={COMPANY_INFO.telUrl}
+              className="bg-white/10 hover:bg-white/20 text-white px-7 py-3 rounded-full font-bold border border-white/20 transition"
+            >
+              {COMPANY_INFO.phoneFormatted}
+            </a>
           </div>
         </div>
       </section>
