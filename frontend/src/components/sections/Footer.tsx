@@ -139,7 +139,7 @@ export function Footer() {
               </li>
               <li className="pt-2">
                 <Link to={isArabic ? "/ar/riyadh" : "/riyadh"} className="text-emerald-400 font-semibold hover:underline">
-                  {isArabic ? "خدمات الرياض الميدانية" : "Riyadh City Hub"}
+                  {isArabic ? "موقعنا" : "Our Location"}
                 </Link>
               </li>
             </ul>

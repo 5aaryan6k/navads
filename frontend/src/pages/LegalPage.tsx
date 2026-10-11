@@ -18,16 +18,35 @@ export function LegalPage() {
     <div className={`min-h-screen bg-white text-slate-900 font-sans antialiased ${isArabic ? "font-arabic" : ""}`} dir={isArabic ? "rtl" : "ltr"}>
       <Header />
 
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-navy-950 text-white pt-36 pb-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 mb-4">
-            {isTerms ? <FileText size={14} /> : <Shield size={14} />}
-            {isArabic ? "وثيقة رسمية — شركة نافيآدز" : "Official Document — Navi Ads Company"}
+      <section className="relative overflow-hidden bg-slate-50 pt-36 pb-16 border-b border-slate-200/60">
+        {/* Background Gradients & Glow */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-emerald-50/60 to-teal-50/40" />
+        <div
+          className="absolute inset-0 opacity-100"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 30%, rgba(16, 185, 129, 0.12) 0%, transparent 45%), radial-gradient(circle at 80% 70%, rgba(20, 184, 166, 0.12) 0%, transparent 45%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(15, 23, 42, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 23, 42, 0.4) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+          <div className="text-emerald-700 font-bold text-xs sm:text-sm uppercase tracking-wider mb-3">
+            {isTerms
+              ? (isArabic ? "الشروط والأحكام الرسمية" : "Terms & Conditions")
+              : (isArabic ? "سياسة الخصوصية وحماية البيانات" : "Privacy & Data Protection")}
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 leading-tight">
             {seo.h1}
           </h1>
-          <p className="text-slate-300 text-lg">
+          <p className="text-slate-600 text-lg leading-relaxed font-medium">
             {seo.subtitle}
           </p>
         </div>

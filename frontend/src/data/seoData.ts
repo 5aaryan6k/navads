@@ -42,7 +42,8 @@ export const COMPANY_INFO = {
   countryAr: "المملكة العربية السعودية",
   canonicalHost: "https://www.naviads.com.sa",
   workingHoursEn: "Sun – Thu: 8:00 AM – 6:00 PM",
-  workingHoursAr: "الأحد – الخميس: 8:00 صباحاً – 6:00 مساءً"
+  workingHoursAr: "الأحد – الخميس: 8:00 صباحاً – 6:00 مساءً",
+  officeMapEmbedUrl: ""
 };
 
 export const pagesSEO: Record<string, PageSEO> = {
@@ -140,7 +141,7 @@ export const pagesSEO: Record<string, PageSEO> = {
   "/services/cleaning": {
     path: "/services/cleaning",
     lang: "en",
-    title: "Navi Ads | Sky Cleaning Services in Saudi Arabia",
+    title: "Sky Cleaning Services in Saudi Arabia | Navi Ads",
     description: "Comprehensive Sky Cleaning Services by Navi Ads in Riyadh: building cleaning, office cleaning, residential cleaning, deep cleaning, and post-construction.",
     keywords: "sky cleaning, cleaning services Saudi Arabia, building cleaning Riyadh, commercial cleaning Saudi Arabia, facility cleaning",
     canonical: "https://www.naviads.com.sa/services/cleaning",

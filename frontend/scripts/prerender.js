@@ -154,9 +154,9 @@ for (const [routePath, seo] of Object.entries(pagesSEO)) {
           <span class="block text-[10px] text-emerald-600 font-bold uppercase tracking-widest">${isArabic ? 'خدمات النظافة والعمالة' : 'Sky Cleaning & Manpower'}</span>
         </a>
         <div class="flex items-center gap-4 text-sm font-semibold">
-          <a href="${isArabic ? '/ar/services/cleaning' : '/services/cleaning'}" class="text-slate-700 hover:text-emerald-600">${isArabic ? 'تنظيف سكاي' : 'Sky Cleaning'}</a>
-          <a href="${isArabic ? '/ar/services/manpower' : '/services/manpower'}" class="text-slate-700 hover:text-emerald-600">${isArabic ? 'توريد العمالة' : 'Manpower'}</a>
-          <a href="${isArabic ? '/ar/riyadh' : '/riyadh'}" class="text-slate-700 hover:text-emerald-600">${isArabic ? 'الرياض' : 'Riyadh'}</a>
+          <a href="${isArabic ? '/ar/services/cleaning' : '/services/cleaning'}" class="text-slate-700 hover:text-emerald-600">${isArabic ? 'تنظيف سكاي' : 'Sky Cleaning Services'}</a>
+          <a href="${isArabic ? '/ar/services/manpower' : '/services/manpower'}" class="text-slate-700 hover:text-emerald-600">${isArabic ? 'توريد العمالة' : 'Manpower Services'}</a>
+          <a href="${isArabic ? '/ar/riyadh' : '/riyadh'}" class="text-slate-700 hover:text-emerald-600">${isArabic ? 'موقعنا' : 'Our Location'}</a>
           <a href="${isArabic ? '/ar/contact' : '/contact'}" class="bg-emerald-600 text-white px-4 py-2 rounded-xl">${isArabic ? 'طلب تسعير' : 'Get Quote'}</a>
         </div>
       </div>
@@ -169,10 +169,6 @@ for (const [routePath, seo] of Object.entries(pagesSEO)) {
             ${seo.breadcrumbs.map((b, i) => `<span>${i > 0 ? '/' : ''} <a href="${b.url}" class="hover:underline">${b.name}</a></span>`).join(' ')}
           </nav>
         ` : ''}
-
-        <div class="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold mb-4">
-          ${isArabic ? 'سجل تجاري معتمد: 7051048754 — الرياض' : 'CR: 7051048754 — Riyadh, Saudi Arabia'}
-        </div>
 
         <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">
           ${seo.h1}

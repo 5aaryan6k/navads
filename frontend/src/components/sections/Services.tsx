@@ -2,12 +2,10 @@ import { Link, useLocation } from "react-router-dom";
 import { Icon } from "../icons/Icons";
 import { servicesList } from "../../data/constants";
 import { SafeImage } from "../ui/SafeImage";
-import { ArrowRight, ArrowLeft } from "lucide-react";
 
 export function Services() {
   const location = useLocation();
   const isArabic = location.pathname.startsWith("/ar");
-  const Arrow = isArabic ? ArrowLeft : ArrowRight;
 
   return (
     <section id="services" className="py-24 bg-white" dir={isArabic ? "rtl" : "ltr"}>
@@ -64,7 +62,6 @@ export function Services() {
                     className="inline-flex items-center gap-2 font-bold text-emerald-600 hover:text-emerald-700 transition-colors text-sm"
                   >
                     <span>{isArabic ? "استعراض تفاصيل الخدمة" : `Explore ${s.title}`}</span>
-                    <Arrow size={16} />
                   </Link>
                 </div>
               </div>

@@ -30,21 +30,11 @@ export function Header() {
     {
       label: "خدماتنا",
       dropdown: [
-        { href: "/ar/services/cleaning", label: "خدمات تنظيف سكاي (نظرة عامة)" },
-        { href: "/ar/services/cleaning/building-cleaning", label: "تنظيف المباني" },
-        { href: "/ar/services/cleaning/office-cleaning", label: "تنظيف المكاتب" },
-        { href: "/ar/services/cleaning/home-cleaning", label: "تنظيف المنازل" },
-        { href: "/ar/services/cleaning/deep-cleaning", label: "التنظيف العميق" },
-        { href: "/ar/services/cleaning/post-construction-cleaning", label: "تنظيف بعد البناء" },
-        { href: "/ar/services/cleaning/facade-cleaning", label: "تنظيف واجهات الأبراج" },
-        { href: "/ar/services/manpower", label: "خدمات توريد العمالة (نظرة عامة)" },
-        { href: "/ar/services/manpower/general-workers", label: "توريد عمالة عامة" },
-        { href: "/ar/services/manpower/cleaning-staff", label: "توريد عمالة نظافة" },
-        { href: "/ar/services/manpower/facility-support", label: "كوادر دعم المرافق" },
-        { href: "/ar/services/manpower/skilled-semi-skilled", label: "عمالة ماهرة ونصف ماهرة" },
+        { href: "/ar/services/cleaning", label: "خدمات تنظيف سكاي (Sky Cleaning Services)" },
+        { href: "/ar/services/manpower", label: "خدمات توريد العمالة (Manpower Services)" },
       ]
     },
-    { href: "/ar/riyadh", label: "الرياض" },
+    { href: "/ar/riyadh", label: "موقعنا" },
     { href: "/ar/about", label: "من نحن" },
     { href: "/ar/contact", label: "اتصل بنا" }
   ] : [
@@ -52,21 +42,11 @@ export function Header() {
     {
       label: "Services",
       dropdown: [
-        { href: "/services/cleaning", label: "Sky Cleaning Services (Overview)" },
-        { href: "/services/cleaning/building-cleaning", label: "Building Cleaning" },
-        { href: "/services/cleaning/office-cleaning", label: "Office Cleaning" },
-        { href: "/services/cleaning/home-cleaning", label: "Home Cleaning" },
-        { href: "/services/cleaning/deep-cleaning", label: "Deep Cleaning" },
-        { href: "/services/cleaning/post-construction-cleaning", label: "Post-Construction Cleaning" },
-        { href: "/services/cleaning/facade-cleaning", label: "High-Rise Facade Cleaning" },
-        { href: "/services/manpower", label: "Manpower Services (Overview)" },
-        { href: "/services/manpower/general-workers", label: "General Workers" },
-        { href: "/services/manpower/cleaning-staff", label: "Cleaning Staff" },
-        { href: "/services/manpower/facility-support", label: "Facility Support Staff" },
-        { href: "/services/manpower/skilled-semi-skilled", label: "Skilled & Semi-Skilled" },
+        { href: "/services/cleaning", label: "Sky Cleaning Services" },
+        { href: "/services/manpower", label: "Manpower Services" },
       ]
     },
-    { href: "/riyadh", label: "Riyadh" },
+    { href: "/riyadh", label: "Our Location" },
     { href: "/about", label: "About Us" },
     { href: "/contact", label: "Contact" }
   ];
@@ -106,31 +86,14 @@ export function Header() {
                     <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
                   </button>
 
-                  {/* Dropdown Menu */}
-                  <div className={`absolute top-full ${isArabic ? "right-0" : "left-0"} w-72 bg-white rounded-2xl shadow-2xl border border-slate-100 p-3 transition-all duration-200 ${servicesDropdown ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}`}>
-                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 py-1.5 border-b border-slate-100 mb-1">
-                      {isArabic ? "تنظيف سكاي" : "Sky Cleaning"}
-                    </div>
-                    {item.dropdown.slice(0, 7).map((sub) => (
+                  {/* Dropdown Menu - Exactly Two Listings */}
+                  <div className={`absolute top-full ${isArabic ? "right-0" : "left-0"} w-72 bg-white rounded-2xl shadow-2xl border border-slate-100 p-2.5 transition-all duration-200 ${servicesDropdown ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}`}>
+                    {item.dropdown.map((sub) => (
                       <Link
                         key={sub.href}
                         to={sub.href}
                         onClick={() => setServicesDropdown(false)}
-                        className={`block px-3 py-1.5 rounded-lg text-xs font-medium transition ${pathname === sub.href ? "bg-emerald-50 text-emerald-700 font-bold" : "text-slate-700 hover:bg-slate-50 hover:text-emerald-600"}`}
-                      >
-                        {sub.label}
-                      </Link>
-                    ))}
-
-                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-3 py-1.5 border-b border-slate-100 mt-2 mb-1">
-                      {isArabic ? "توريد العمالة" : "Manpower Supply"}
-                    </div>
-                    {item.dropdown.slice(7).map((sub) => (
-                      <Link
-                        key={sub.href}
-                        to={sub.href}
-                        onClick={() => setServicesDropdown(false)}
-                        className={`block px-3 py-1.5 rounded-lg text-xs font-medium transition ${pathname === sub.href ? "bg-emerald-50 text-emerald-700 font-bold" : "text-slate-700 hover:bg-slate-50 hover:text-emerald-600"}`}
+                        className={`block px-4 py-3 rounded-xl text-sm font-semibold transition ${pathname === sub.href ? "bg-emerald-50 text-emerald-700 font-bold" : "text-slate-700 hover:bg-slate-50 hover:text-emerald-600"}`}
                       >
                         {sub.label}
                       </Link>

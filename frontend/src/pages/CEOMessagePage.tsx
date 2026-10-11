@@ -19,12 +19,39 @@ export function CEOMessagePage() {
       <Header />
 
       {/* Hero Header */}
-      <div className="bg-gradient-to-br from-slate-50 via-emerald-50/60 to-teal-50/40 text-slate-900 pt-36 pb-20 relative overflow-hidden border-b border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 text-center max-w-3xl">
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">{ceo.title}</h1>
-          <p className="mt-4 text-xl text-emerald-600 font-semibold">{ceo.position}</p>
+      <section className="relative overflow-hidden bg-slate-50 pt-36 pb-20 border-b border-slate-200/60">
+        {/* Background Gradients & Glow */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-emerald-50/60 to-teal-50/40" />
+        <div
+          className="absolute inset-0 opacity-100"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 30%, rgba(16, 185, 129, 0.12) 0%, transparent 45%), radial-gradient(circle at 80% 70%, rgba(20, 184, 166, 0.12) 0%, transparent 45%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(15, 23, 42, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 23, 42, 0.4) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+          <div className="max-w-3xl">
+            <div className="text-emerald-700 font-bold text-xs sm:text-sm uppercase tracking-wider mb-3">
+              Executive Leadership
+            </div>
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-4 leading-tight">
+              {ceo.title}
+            </h1>
+            <p className="text-lg sm:text-xl text-emerald-700 font-semibold">
+              {ceo.position}
+            </p>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Message Content */}
       <section className="py-24 bg-slate-50">

@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Header } from "../components/sections/Header";
 import { Footer } from "../components/sections/Footer";
 import { pagesSEO, COMPANY_INFO } from "../data/seoData";
-import { Phone, MessageSquare, CheckCircle2, Shield, ArrowRight, ArrowLeft, Clock, MapPin, Building, Users } from "lucide-react";
+import { Phone, MessageSquare, CheckCircle2, Shield, Clock, MapPin, Building, Users } from "lucide-react";
 
 export function ServiceDetailPage() {
   const location = useLocation();
@@ -12,7 +12,6 @@ export function ServiceDetailPage() {
 
   const seo = pagesSEO[pathname] || pagesSEO["/services/cleaning"];
   const isArabic = seo.lang === "ar" || pathname.startsWith("/ar");
-  const Arrow = isArabic ? ArrowLeft : ArrowRight;
 
   // Determine service details based on route
   const isCleaning = pathname.includes("cleaning");
@@ -23,19 +22,36 @@ export function ServiceDetailPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-navy-950 text-white pt-36 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px]"></div>
+      <section className="relative overflow-hidden bg-slate-50 pt-36 pb-20 border-b border-slate-200/60">
+        {/* Background Gradients & Glow */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-emerald-50/60 to-teal-50/40" />
+        <div
+          className="absolute inset-0 opacity-100"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 30%, rgba(16, 185, 129, 0.12) 0%, transparent 45%), radial-gradient(circle at 80% 70%, rgba(20, 184, 166, 0.12) 0%, transparent 45%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(15, 23, 42, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 23, 42, 0.4) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           
           {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-400 mb-6 flex-wrap" aria-label="Breadcrumb">
+          <nav className="flex items-center gap-2 text-xs sm:text-sm text-slate-500 mb-6 flex-wrap" aria-label="Breadcrumb">
             {seo.breadcrumbs?.map((crumb, idx) => (
               <span key={crumb.url} className="flex items-center gap-2">
-                {idx > 0 && <span className="text-slate-600">/</span>}
+                {idx > 0 && <span className="text-slate-400">/</span>}
                 {idx === (seo.breadcrumbs?.length || 1) - 1 ? (
-                  <span className="text-emerald-400 font-medium">{crumb.name}</span>
+                  <span className="text-emerald-700 font-bold">{crumb.name}</span>
                 ) : (
-                  <Link to={crumb.url.replace(COMPANY_INFO.canonicalHost, "") || "/"} className="hover:text-white transition">
+                  <Link to={crumb.url.replace(COMPANY_INFO.canonicalHost, "") || "/"} className="hover:text-emerald-600 transition">
                     {crumb.name}
                   </Link>
                 )}
@@ -44,15 +60,15 @@ export function ServiceDetailPage() {
           </nav>
 
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 mb-4">
-              <Shield size={14} />
-              {isArabic ? "خدمة معتمدة بسجل تجاري: 7051048754" : "Licensed Service — CR: 7051048754"}
-            </div>
-
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+            {seo.serviceCategory && (
+              <div className="text-emerald-700 font-bold text-xs sm:text-sm uppercase tracking-wider mb-3">
+                {seo.serviceCategory}
+              </div>
+            )}
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight">
               {seo.h1}
             </h1>
-            <p className="text-lg sm:text-xl text-slate-300 leading-relaxed mb-8">
+            <p className="text-lg sm:text-xl text-slate-600 leading-relaxed mb-8 font-medium">
               {seo.subtitle}
             </p>
 
@@ -60,7 +76,7 @@ export function ServiceDetailPage() {
             <div className="flex flex-wrap items-center gap-4">
               <a
                 href={COMPANY_INFO.telUrl}
-                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg shadow-emerald-900/40 flex items-center gap-2 transition transform hover:-translate-y-0.5"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3.5 rounded-xl shadow-md shadow-emerald-600/20 flex items-center gap-2 transition hover:scale-105"
               >
                 <Phone size={18} />
                 <span>{isArabic ? "اتصل الآن: 0537799389" : "Call: +966 53 779 9389"}</span>
@@ -70,18 +86,17 @@ export function ServiceDetailPage() {
                 href={COMPANY_INFO.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-teal-700 hover:bg-teal-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg flex items-center gap-2 transition transform hover:-translate-y-0.5"
+                className="bg-teal-700 hover:bg-teal-800 text-white font-bold px-6 py-3.5 rounded-xl shadow-md flex items-center gap-2 transition hover:scale-105"
               >
                 <MessageSquare size={18} />
-                <span>{isArabic ? "محادثة واتساب سريعة" : "WhatsApp Inquiry"}</span>
+                <span>{isArabic ? "محادثة واتساب" : "WhatsApp Inquiry"}</span>
               </a>
 
               <Link
                 to={isArabic ? "/ar/contact" : "/contact"}
-                className="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3.5 rounded-xl border border-white/20 flex items-center gap-2 transition"
+                className="border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 font-semibold px-6 py-3.5 rounded-xl shadow-sm flex items-center gap-2 transition hover:scale-105"
               >
                 <span>{isArabic ? "طلب عرض سعر رسمي" : "Request Formal Quote"}</span>
-                <Arrow size={16} />
               </Link>
             </div>
           </div>
@@ -196,28 +211,24 @@ export function ServiceDetailPage() {
                         className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 text-slate-800 hover:text-emerald-700 font-medium text-sm flex items-center justify-between transition border border-slate-200/60"
                       >
                         <span>{isArabic ? "تنظيف المباني" : "Building Cleaning"}</span>
-                        <Arrow size={14} />
                       </Link>
                       <Link
                         to={isArabic ? "/ar/services/cleaning/office-cleaning" : "/services/cleaning/office-cleaning"}
                         className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 text-slate-800 hover:text-emerald-700 font-medium text-sm flex items-center justify-between transition border border-slate-200/60"
                       >
                         <span>{isArabic ? "تنظيف المكاتب" : "Office Cleaning"}</span>
-                        <Arrow size={14} />
                       </Link>
                       <Link
                         to={isArabic ? "/ar/services/cleaning/facade-cleaning" : "/services/cleaning/facade-cleaning"}
                         className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 text-slate-800 hover:text-emerald-700 font-medium text-sm flex items-center justify-between transition border border-slate-200/60"
                       >
                         <span>{isArabic ? "تنظيف واجهات الأبراج" : "High-Rise Facade Cleaning"}</span>
-                        <Arrow size={14} />
                       </Link>
                       <Link
                         to={isArabic ? "/ar/riyadh" : "/riyadh"}
                         className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 text-slate-800 hover:text-emerald-700 font-medium text-sm flex items-center justify-between transition border border-slate-200/60"
                       >
                         <span>{isArabic ? "خدماتنا في مدينة الرياض" : "Cleaning in Riyadh"}</span>
-                        <Arrow size={14} />
                       </Link>
                     </>
                   )}
@@ -229,28 +240,24 @@ export function ServiceDetailPage() {
                         className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 text-slate-800 hover:text-emerald-700 font-medium text-sm flex items-center justify-between transition border border-slate-200/60"
                       >
                         <span>{isArabic ? "توريد عمالة عامة" : "General Workers Supply"}</span>
-                        <Arrow size={14} />
                       </Link>
                       <Link
                         to={isArabic ? "/ar/services/manpower/cleaning-staff" : "/services/manpower/cleaning-staff"}
                         className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 text-slate-800 hover:text-emerald-700 font-medium text-sm flex items-center justify-between transition border border-slate-200/60"
                       >
                         <span>{isArabic ? "توريد عمالة نظافة" : "Cleaning Staff Supply"}</span>
-                        <Arrow size={14} />
                       </Link>
                       <Link
                         to={isArabic ? "/ar/services/manpower/facility-support" : "/services/manpower/facility-support"}
                         className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 text-slate-800 hover:text-emerald-700 font-medium text-sm flex items-center justify-between transition border border-slate-200/60"
                       >
                         <span>{isArabic ? "كوادر دعم المرافق" : "Facility Support Staff"}</span>
-                        <Arrow size={14} />
                       </Link>
                       <Link
                         to={isArabic ? "/ar/riyadh" : "/riyadh"}
                         className="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50 text-slate-800 hover:text-emerald-700 font-medium text-sm flex items-center justify-between transition border border-slate-200/60"
                       >
                         <span>{isArabic ? "توريد عمالة بالرياض" : "Manpower in Riyadh"}</span>
-                        <Arrow size={14} />
                       </Link>
                     </>
                   )}
@@ -295,7 +302,6 @@ export function ServiceDetailPage() {
                     className="w-full bg-white/10 hover:bg-white/20 text-white font-semibold py-3.5 px-4 rounded-xl border border-white/20 flex items-center justify-center gap-2 transition"
                   >
                     <span>{isArabic ? "نموذج الطلب عبر الموقع" : "Online Contact Form"}</span>
-                    <Arrow size={16} />
                   </Link>
                 </div>
               </div>

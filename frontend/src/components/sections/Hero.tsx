@@ -3,7 +3,7 @@ import { Icon } from "../icons/Icons";
 import { servicesList } from "../../data/constants";
 import { siteContent } from "../../data/siteContent";
 import { COMPANY_INFO } from "../../data/seoData";
-import { Shield, Phone, MessageSquare } from "lucide-react";
+import { Phone, MessageSquare } from "lucide-react";
 
 export function Hero() {
   const location = useLocation();
@@ -36,12 +36,6 @@ export function Hero() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-36 pb-20 grid md:grid-cols-2 gap-12 items-center">
         <div>
-          {/* CR Trust Tag */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 mb-6 shadow-sm">
-            <Shield size={14} className="text-emerald-700" />
-            <span>{isArabic ? "سجل تجاري معتمد: 7051048754 — الرياض" : "Official License CR: 7051048754 — Riyadh"}</span>
-          </div>
-
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.15] tracking-tight text-slate-900">
             {isArabic ? (
               <>

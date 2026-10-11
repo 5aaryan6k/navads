@@ -138,10 +138,6 @@ function HeroSection({ content }: { content?: any }) {
       <div className="max-w-7xl mx-auto relative z-10 w-full flex flex-col lg:flex-row items-center gap-12">
         <div className="max-w-2xl mx-auto lg:mx-0 text-center lg:text-left">
           <AnimatedSection>
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/10 text-sm text-primary-300 font-medium mb-8">
-              <div className="w-2 h-2 bg-primary-400 rounded-full animate-pulse"></div>
-              CR: 7051048754 — Riyadh
-            </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-navy-900 leading-[1.1] mb-8 tracking-tight">
               {title.split(" ").map((word: string, i: number, arr: string[]) =>
                 i === arr.length - 1 ? <span key={i} className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-primary-300">{word}</span> : word + " "
@@ -603,6 +599,7 @@ export default function App() {
         <Route path="/services/manpower" element={<ServicesPage />} />
         <Route path="/services/manpower/:serviceSlug" element={<ServiceDetailPage />} />
         <Route path="/riyadh" element={<CityPage />} />
+        <Route path="/our-location" element={<CityPage />} />
         <Route path="/sky-cleaning-riyadh" element={<ServiceDetailPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy-policy" element={<LegalPage />} />
@@ -618,6 +615,7 @@ export default function App() {
         <Route path="/ar/services/manpower" element={<ServicesPage />} />
         <Route path="/ar/services/manpower/:serviceSlug" element={<ServiceDetailPage />} />
         <Route path="/ar/riyadh" element={<CityPage />} />
+        <Route path="/ar/our-location" element={<CityPage />} />
         <Route path="/ar/sky-cleaning-riyadh" element={<ServiceDetailPage />} />
         <Route path="/ar/contact" element={<ContactPage />} />
         <Route path="/ar/privacy-policy" element={<LegalPage />} />

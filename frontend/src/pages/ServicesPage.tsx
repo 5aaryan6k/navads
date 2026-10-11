@@ -4,7 +4,7 @@ import { Footer } from "../components/sections/Footer";
 import { siteContent } from "../data/siteContent";
 import { SafeImage } from "../components/ui/SafeImage";
 import { COMPANY_INFO, pagesSEO } from "../data/seoData";
-import { Phone, MessageSquare, ArrowRight, ArrowLeft, Shield, CheckCircle2 } from "lucide-react";
+import { Phone, MessageSquare, Shield, CheckCircle2 } from "lucide-react";
 
 export function ServicesPage() {
   const location = useLocation();
@@ -13,7 +13,6 @@ export function ServicesPage() {
     : location.pathname;
 
   const isArabic = pathname.startsWith("/ar");
-  const Arrow = isArabic ? ArrowLeft : ArrowRight;
 
   const isCleaningOverview = pathname.includes("cleaning");
   const isManpowerOverview = pathname.includes("manpower");
@@ -42,56 +41,128 @@ export function ServicesPage() {
       <Header />
 
       {/* Hero Header */}
-      <div className="bg-gradient-to-br from-slate-900 via-navy-900 to-slate-950 text-white pt-36 pb-20 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 text-center max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 mb-4">
-            <Shield size={14} />
-            <span>{isArabic ? "سجل تجاري معتمد: 7051048754 — الرياض" : "CR: 7051048754 — Riyadh, Saudi Arabia"}</span>
-          </div>
+      <section className="relative overflow-hidden bg-slate-50 pt-36 pb-20 border-b border-slate-200/60">
+        {/* Background Gradients & Glow */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-emerald-50/60 to-teal-50/40" />
+        <div
+          className="absolute inset-0 opacity-100"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 30%, rgba(16, 185, 129, 0.12) 0%, transparent 45%), radial-gradient(circle at 80% 70%, rgba(20, 184, 166, 0.12) 0%, transparent 45%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.05]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(15, 23, 42, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 23, 42, 0.4) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
-            {isCleaningOverview
-              ? (isArabic ? "خدمات تنظيف سكاي في المملكة العربية السعودية" : "Navi Ads | Sky Cleaning Services in Saudi Arabia")
-              : isManpowerOverview
-              ? (isArabic ? "خدمات توريد العمالة في المملكة العربية السعودية" : "Manpower Supply Services in Saudi Arabia")
-              : (isArabic ? "خدمات شركة نافيآدز في الرياض والمملكة" : "Professional Services | Navi Ads Company")}
-          </h1>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+          <div className="max-w-3xl">
+            <div className="text-emerald-700 font-bold text-xs sm:text-sm uppercase tracking-wider mb-3">
+              {isCleaningOverview
+                ? (isArabic ? "خدمات النظافة المتخصصة — سكاي كلينينج" : "Specialized Cleaning — Sky Cleaning")
+                : isManpowerOverview
+                ? (isArabic ? "خدمات توريد وإدارة الكوادر والعمالة" : "Workforce & Manpower Solutions")
+                : (isArabic ? "خدمات شركة نافيآدز المتكاملة" : "Comprehensive Commercial Services")}
+            </div>
 
-          <p className="mt-4 text-base sm:text-xl text-slate-300 leading-relaxed font-medium">
-            {isCleaningOverview
-              ? (isArabic ? "حلول تنظيف متخصصة ومتكاملة للمباني والمكاتب والمنازل والمشاريع بالرياض" : "Comprehensive commercial, residential, and high-rise cleaning solutions delivered across Riyadh.")
-              : isManpowerOverview
-              ? (isArabic ? "توريد كوادر وعمالة نظامية وموثوقة لمختلف الأنشطة والمنشآت التشغيلية" : "Compliant, vetted, and dependable workforce solutions across Riyadh and Saudi Arabia.")
-              : (isArabic ? "خدمات تنظيف سكاي المتكاملة وتوريد العمالة النظامية لكافة المنشآت والمشاريع" : "Dedicated Sky Cleaning & Manpower Solutions Across Saudi Arabia")}
-          </p>
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight">
+              {isCleaningOverview ? (
+                isArabic ? (
+                  <>
+                    خدمات تنظيف سكاي
+                    <br />
+                    <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                      في المملكة العربية السعودية
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    Sky Cleaning Services
+                    <br />
+                    <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                      in Saudi Arabia
+                    </span>
+                  </>
+                )
+              ) : isManpowerOverview ? (
+                isArabic ? (
+                  <>
+                    خدمات توريد العمالة
+                    <br />
+                    <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                      في المملكة العربية السعودية
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    Manpower Supply Services
+                    <br />
+                    <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                      in Saudi Arabia
+                    </span>
+                  </>
+                )
+              ) : (
+                isArabic ? (
+                  <>
+                    خدمات شركة نافيآدز
+                    <br />
+                    <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                      في الرياض والمملكة
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    Professional Services
+                    <br />
+                    <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                      Navi Ads Company
+                    </span>
+                  </>
+                )
+              )}
+            </h1>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <a
-              href={COMPANY_INFO.telUrl}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg flex items-center gap-2 transition"
-            >
-              <Phone size={16} />
-              <span>{isArabic ? "0537799389" : "+966 53 779 9389"}</span>
-            </a>
-            <a
-              href={COMPANY_INFO.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-teal-700 hover:bg-teal-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg flex items-center gap-2 transition"
-            >
-              <MessageSquare size={16} />
-              <span>{isArabic ? "واتساب" : "WhatsApp"}</span>
-            </a>
-            <Link
-              to={isArabic ? "/ar/contact" : "/contact"}
-              className="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-xl border border-white/20 transition flex items-center gap-2"
-            >
-              <span>{isArabic ? "طلب تسعير" : "Request Quote"}</span>
-              <Arrow size={16} />
-            </Link>
+            <p className="mt-4 text-base sm:text-xl text-slate-600 leading-relaxed font-medium mb-8">
+              {isCleaningOverview
+                ? (isArabic ? "حلول تنظيف متخصصة ومتكاملة للمباني والمكاتب والمنازل والمشاريع بالرياض" : "Comprehensive commercial, residential, and high-rise cleaning solutions delivered across Riyadh.")
+                : isManpowerOverview
+                ? (isArabic ? "توريد كوادر وعمالة نظامية وموثوقة لمختلف الأنشطة والمنشآت التشغيلية" : "Compliant, vetted, and dependable workforce solutions across Riyadh and Saudi Arabia.")
+                : (isArabic ? "خدمات تنظيف سكاي المتكاملة وتوريد العمالة النظامية لكافة المنشآت والمشاريع" : "Dedicated Sky Cleaning & Manpower Solutions Across Saudi Arabia")}
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4">
+              <a
+                href={COMPANY_INFO.telUrl}
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3.5 rounded-xl shadow-md shadow-emerald-600/20 flex items-center gap-2 transition hover:scale-105"
+              >
+                <Phone size={18} />
+                <span>{COMPANY_INFO.phoneFormatted}</span>
+              </a>
+              <a
+                href={COMPANY_INFO.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-teal-700 hover:bg-teal-800 text-white font-bold px-6 py-3.5 rounded-xl shadow-md flex items-center gap-2 transition hover:scale-105"
+              >
+                <MessageSquare size={18} />
+                <span>{isArabic ? "واتساب" : "WhatsApp"}</span>
+              </a>
+              <Link
+                to={isArabic ? "/ar/contact" : "/contact"}
+                className="border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 font-semibold px-6 py-3.5 rounded-xl shadow-sm flex items-center gap-2 transition hover:scale-105"
+              >
+                <span>{isArabic ? "طلب تسعير" : "Request Quote"}</span>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* SERVICE 1 — SKY CLEANING SECTION */}
       {(!isManpowerOverview || isCleaningOverview) && (
@@ -135,7 +206,6 @@ export function ServicesPage() {
                         className="text-emerald-700 hover:text-emerald-800 font-bold text-sm inline-flex items-center gap-1.5 transition"
                       >
                         <span>{isArabic ? "تفاصيل الخدمة وحجز موعد" : "View Details & Scope"}</span>
-                        <Arrow size={14} />
                       </Link>
                     </div>
                   </div>
@@ -215,7 +285,6 @@ export function ServicesPage() {
                         className="text-emerald-700 hover:text-emerald-800 font-bold text-xs sm:text-sm inline-flex items-center gap-1.5 transition"
                       >
                         <span>{isArabic ? "تفاصيل الكوادر والطلب" : "Staff Details & Hiring"}</span>
-                        <Arrow size={14} />
                       </Link>
                     </div>
                   </div>

@@ -49,8 +49,9 @@ export function SEOHead() {
     setMetaTag("keywords", seo.keywords);
     setMetaTag("robots", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
 
-    // Canonical Link
+    // Canonical & Favicon Links
     setLinkTag("canonical", seo.canonical);
+    setLinkTag("icon", "/favicon.svg");
 
     // Hreflang alternates
     const englishPath = normalizedPath.startsWith("/ar")
